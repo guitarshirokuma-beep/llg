@@ -49,4 +49,6 @@ Make1DArray calc_dSdt(Params& p, Make1DArray& S
 
 void input(const Params& p,Make2DArray& S, const Make1DArray& S_new, int step);
 
+void output_data(const Params& p, const Make2DArray& S);
+
 #endif

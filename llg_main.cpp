@@ -14,6 +14,6 @@ int main(){
 	Make2DArray h_app(p.Lx, p.N_steps);
 	initialize(p, S, h_app);
 	run_llg(p, S, h_app);
-	//結果を出力する関数を作成　あ
+	//結果を出力する関数を作成　
 	return 0;
 }

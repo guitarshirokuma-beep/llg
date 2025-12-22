@@ -149,3 +149,7 @@ void run_llg(Params& p, Make2DArray& S, Make2DArray& h_app){
 
 }
 
+void output_data(const Params& p, const Make2DArray& S){
+    ofstream ofs("llg.dat");
+    ofs << S(0, 0).x << "\n";
+}//datファイルが出ない
