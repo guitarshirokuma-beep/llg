@@ -151,5 +151,9 @@ void run_llg(Params& p, Make2DArray& S, Make2DArray& h_app){
 
 void output_data(const Params& p, const Make2DArray& S){
     ofstream ofs("llg.dat");
-    ofs << S(0, 0).x << "\n";
-}//datファイルが出ない
+	int n = 0;
+	ofs << "# step S(n=0, step).x\n";
+	for(int step=0; step<p.N_steps; step++){
+		ofs << step << " " << S(n, step).x << "\n";
+	}
+}
