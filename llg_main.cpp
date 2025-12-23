@@ -15,5 +15,6 @@ int main(){
 	initialize(p, S, h_app);
 	run_llg(p, S, h_app);
 	//結果を出力する関数を作成　
+	output_data(p, S);
 	return 0;
 }
