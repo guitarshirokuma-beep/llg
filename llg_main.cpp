@@ -18,18 +18,5 @@ int main(){
 	output_data(p, S);
 	output_params(p);
 	Make1DArray S_old = Make1DArray::extract(p, S, 0);
-	//test
-	for(int n=0; n<p.Lx; n++){
-		cout << S_old(n).x << "\n";
-		cout << S_old(n).y << "\n";
-		cout << S_old(n).z << "\n";
-	}
-	Make1DArray h_exc(p.Lx);
-	h_exc = calc_h_exc(p, S_old);
-	for(int n=0; n<p.Lx; n++){
-		cout << h_exc(n).x << "\n";
-		cout << h_exc(n).y << "\n";
-		cout << h_exc(n).z << "\n";
-	}
 	return 0;
 }
