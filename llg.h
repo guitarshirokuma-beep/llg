@@ -47,7 +47,7 @@ void initialize(Params& p, Make2DArray& S, Make2DArray& h_app);
 void run_llg(Params& p, Make2DArray& S, Make2DArray& h_app);
 
 Make1DArray calc_dSdt(Params& p, Make1DArray& S
-						, Make2DArray& h_app, int step);
+						, Make2DArray& h_app, Make1DArray& h_exc,int step);
 
 void input(const Params& p,Make2DArray& S, const Make1DArray& S_new, int step);
 

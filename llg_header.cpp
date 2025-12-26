@@ -123,11 +123,11 @@ void input(const Params& p
 }
 
 Make1DArray calc_dSdt(Params& p, Make1DArray& S_step
-						, Make2DArray& h_app, int step){
+						, Make2DArray& h_app, Make1DArray& h_exc, int step){
 	Make1DArray dS_over_dt(p.Lx);
 	for(int n=0; n<p.Lx; n++){
 		const Data& S_ = S_step(n);
-		const Data& h_ = h_app(n, step);
+		const Data& h_ = h_app(n, step) + h_exc(n);
 
 		Data Sxh = S_step(n).cross(h_app(n, step));
 		Data SxSxh = S_step(n).cross(Sxh);
@@ -143,10 +143,11 @@ Make1DArray calc_dSdt(Params& p, Make1DArray& S_step
 void run_llg(Params& p, Make2DArray& S, Make2DArray& h_app){
 	for(int step=0; step<p.N_steps-1; step++){
 		Make1DArray S_old = Make1DArray::extract(p, S, step);
-		Make1DArray dS_over_dt = calc_dSdt(p, S_old, h_app, step);
+		Make1DArray h_exc = calc_h_exc(p, S_old);
+		Make1DArray dS_over_dt = calc_dSdt(p, S_old, h_app, h_exc, step);
 		Make1DArray S_pred = S_old + p.dt * dS_over_dt;
 		S_pred.normalize();
-		Make1DArray dS_over_dt_2 = calc_dSdt(p, S_pred, h_app, step);
+		Make1DArray dS_over_dt_2 = calc_dSdt(p, S_pred, h_app, h_exc, step);
 		Make1DArray S_new = S_old + 0.5*p.dt*( dS_over_dt + dS_over_dt_2 );
 		S_new.normalize();
 		input(p, S, S_new, step+1);
