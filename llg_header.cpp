@@ -136,17 +136,6 @@ void run_llg(Params& p, Make2DArray& S, Make2DArray& h_app){
 		S_new.normalize();
 		input(p, S, S_new, step+1);
 	}
-	//ofstream ofs("test.dat");
-	int step = 0;
-	for(int step=0; step<p.N_steps; step++){
-		for(int n=0; n<p.Lx; n++){
-			cout << "S(" << n << "," << step << ").x = " << S(n, step).x << "\n";
-			cout << "S(" << n << "," << step << ").y = " << S(n, step).y << "\n";
-			cout << "S(" << n << "," << step << ").z = " << S(n, step).z << "\n";
-			cout << "\n";
-		}
-	}
-
 }
 
 void output_data(const Params& p, const Make2DArray& S){
