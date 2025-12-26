@@ -53,6 +53,6 @@ void output_data(const Params& p, const Make2DArray& S);
 
 void output_params(const Params& p);
 
-void calc_h_eff(const Params& p, const Make2DArray& h_eff);
+void calc_h_eff(const Params& p, const Make1DArray& S_old);
 
 #endif
