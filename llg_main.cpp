@@ -6,7 +6,7 @@ using namespace std;
 
 int main(){
 	const int Lx = 3;
-	const int N_steps = 10;
+	const int N_steps = 3000;
 	const double lam = 0.05;
 	const double h_app_norm = 10.102;
 	Params p(Lx, N_steps, lam, h_app_norm);
