@@ -11,6 +11,7 @@ class Data{
 		double x, y, z;
 		Data cross(const Data& other) const;
 		Data operator+(const Data& other) const;
+		Data& operator+=(const Data& other);
 		friend Data operator*(double c, const Data& a);
 		void normalize();
 };
@@ -34,6 +35,7 @@ class Make1DArray{
 		Data& operator()(int x);
 		const Data& operator()(int x) const;
 		Make1DArray operator+(const Make1DArray& other) const;
+		Make1DArray operator+=(const Make1DArray& other);
 		friend Make1DArray operator*(double c, const Make1DArray& a);
 		static Make1DArray extract(const Params& p
 								,const Make2DArray& S, int step);

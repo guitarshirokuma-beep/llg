@@ -24,6 +24,13 @@ Data operator*(double c, const Data& a){
 	return {c * a.x, c * a.y, c* a.z};
 }
 
+Data& Data::operator+=(const Data& other){
+	x += other.x;
+	y += other.y;
+	z += other.z;
+	return *this;
+}
+
 void Data::normalize(){
 	double n = sqrt(x*x + y*y + z*z);
 	if(n > 0.0){
@@ -60,6 +67,13 @@ Make1DArray Make1DArray::operator+(const Make1DArray& other) const{
 	return result;
 }
 
+Make1DArray Make1DArray::operator+=(const Make1DArray& other) {
+	Make1DArray result(Lx);
+	for(int n=0; n<Lx; n++){
+		val[n] += other.val[n];	
+	}
+	return 3;	
+}
 Make1DArray operator*(double c, const Make1DArray& a){
 	Make1DArray result(a.Lx);
 	for(int n=0; n<a.Lx; n++){
@@ -170,6 +184,5 @@ Make1DArray calc_h_exc(const Params& p, const Make1DArray& S_old){
 	for(int n=0; n<p.Lx; n++){
 		h_exc(n) = S_old((n-1+p.Lx)/p.Lx);
 	}
-	cout << (0 - 1 + p.Lx)%p.Lx << "\n";
 	return h_exc;
 }
