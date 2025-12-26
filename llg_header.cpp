@@ -165,4 +165,12 @@ void output_params(const Params& p){
 	cout << "h_app_norm = " << p.h_app_norm << "\n";
 	cout << "dt = " << p.dt << "\n";
 	cout << "gamma = " << p.gamma << "\n";
+
+	ofstream ofs("llg_params.dat");
+	ofs <<  p.Lx << "\n";
+	ofs << p.N_steps << "\n";
+	ofs << p.lam << "\n";
+	ofs << p.h_app_norm << "\n";
+	ofs << p.dt << "\n";
+	ofs << p.gamma << "\n";
 }
