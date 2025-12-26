@@ -9,12 +9,27 @@ int main(){
 	const int N_steps = 5;
 	const double lam = 0.05;
 	const double h_app_norm = 10.102;
-	Params p(Lx, N_steps, lam, h_app_norm);
+	const double J = 10.0;
+	Params p(Lx, N_steps, lam, h_app_norm, J);
 	Make2DArray S(p.Lx, p.N_steps);
 	Make2DArray h_app(p.Lx, p.N_steps);
 	initialize(p, S, h_app);
 	run_llg(p, S, h_app);
 	output_data(p, S);
 	output_params(p);
+	Make1DArray S_old = Make1DArray::extract(p, S, 0);
+	//test
+	for(int n=0; n<p.Lx; n++){
+		cout << S_old(n).x << "\n";
+		cout << S_old(n).y << "\n";
+		cout << S_old(n).z << "\n";
+	}
+	Make1DArray h_exc(p.Lx);
+	h_exc = calc_h_exc(p, S_old);
+	for(int n=0; n<p.Lx; n++){
+		cout << h_exc(n).x << "\n";
+		cout << h_exc(n).y << "\n";
+		cout << h_exc(n).z << "\n";
+	}
 	return 0;
 }

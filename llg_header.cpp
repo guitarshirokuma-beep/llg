@@ -150,7 +150,7 @@ void run_llg(Params& p, Make2DArray& S, Make2DArray& h_app){
 		Make1DArray S_new = S_old + 0.5*p.dt*( dS_over_dt + dS_over_dt_2 );
 		S_new.normalize();
 		input(p, S, S_new, step+1);
-		S_old = calc_h_exc(p, S_old);
+		S_old = calc_h_exc(p, S_old);//temporary
 	}
 }
 
@@ -170,6 +170,7 @@ void output_params(const Params& p){
 	cout << "h_app_norm = " << p.h_app_norm << "\n";
 	cout << "dt = " << p.dt << "\n";
 	cout << "gamma = " << p.gamma << "\n";
+	cout << "J = " << p.J << "\n";
 
 	ofstream ofs("llg_params.dat");
 	ofs <<  p.Lx << "\n";
@@ -178,12 +179,15 @@ void output_params(const Params& p){
 	ofs << p.h_app_norm << "\n";
 	ofs << p.dt << "\n";
 	ofs << p.gamma << "\n";
+	ofs << p.J << "\n";
 }
 
 Make1DArray calc_h_exc(const Params& p, const Make1DArray& S_old){
 	Make1DArray h_exc(p.Lx);
 	for(int n=0; n<p.Lx; n++){
 		h_exc(n) = S_old((n-1+p.Lx)/p.Lx);
+		h_exc(n) += S_old((n+1)/p.Lx);
+		h_exc(n) = p.J*h_exc(n);
 	}
 	return h_exc;
 }
