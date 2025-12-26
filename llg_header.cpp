@@ -152,7 +152,7 @@ void run_llg(Params& p, Make2DArray& S, Make2DArray& h_app){
 		Make1DArray S_new = S_old + 0.5*p.dt*( dS_over_dt + dS_over_dt_2 );
 		S_new.normalize();
 		input(p, S, S_new, step+1);
-		S_old = calc_h_exc(p, S_old);//temp
+		S_old = calc_h_exc(p, S_old);
 	}
 }
 
