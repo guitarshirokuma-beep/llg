@@ -67,13 +67,14 @@ Make1DArray Make1DArray::operator+(const Make1DArray& other) const{
 	return result;
 }
 
-Make1DArray Make1DArray::operator+=(const Make1DArray& other) {
+Make1DArray& Make1DArray::operator+=(const Make1DArray& other) {
 	Make1DArray result(Lx);
 	for(int n=0; n<Lx; n++){
 		val[n] += other.val[n];	
 	}
-	return 3;	
+	return *this;	
 }
+
 Make1DArray operator*(double c, const Make1DArray& a){
 	Make1DArray result(a.Lx);
 	for(int n=0; n<a.Lx; n++){
