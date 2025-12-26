@@ -135,7 +135,7 @@ void run_llg(Params& p, Make2DArray& S, Make2DArray& h_app){
 		Make1DArray S_new = S_old + 0.5*p.dt*( dS_over_dt + dS_over_dt_2 );
 		S_new.normalize();
 		input(p, S, S_new, step+1);
-		calc_h_eff(p, S_old);
+		S_old = calc_h_exc(p, S_old);
 	}
 }
 
@@ -165,6 +165,11 @@ void output_params(const Params& p){
 	ofs << p.gamma << "\n";
 }
 
-void calc_h_eff(const Params& p, const Make1DArray& S_old){
-	cout << "test\n";
+Make1DArray calc_h_exc(const Params& p, const Make1DArray& S_old){
+	Make1DArray h_exc(p.Lx);
+	for(int n=0; n<p.Lx; n++){
+		h_exc(n) = S_old((n-1+p.Lx)/p.Lx);
+	}
+	cout << (0 - 1 + p.Lx)%p.Lx << "\n";
+	return h_exc;
 }
