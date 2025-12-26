@@ -147,7 +147,8 @@ void run_llg(Params& p, Make2DArray& S, Make2DArray& h_app){
 		Make1DArray dS_over_dt = calc_dSdt(p, S_old, h_app, h_exc, step);
 		Make1DArray S_pred = S_old + p.dt * dS_over_dt;
 		S_pred.normalize();
-		Make1DArray dS_over_dt_2 = calc_dSdt(p, S_pred, h_app, h_exc, step);
+		Make1DArray h_exc_2 = calc_h_exc(p, S_pred);
+		Make1DArray dS_over_dt_2 = calc_dSdt(p, S_pred, h_app, h_exc_2, step);
 		Make1DArray S_new = S_old + 0.5*p.dt*( dS_over_dt + dS_over_dt_2 );
 		S_new.normalize();
 		input(p, S, S_new, step+1);
