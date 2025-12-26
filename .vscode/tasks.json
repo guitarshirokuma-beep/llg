@@ -4,7 +4,7 @@
         {
             "label": "build and run llg",
             "type": "shell",
-            "command": "g++ llg_main.cpp llg_header.cpp -O2 -std=c++17 -o llg_main && ./llg_main",
+            "command": "g++ llg_main.cpp llg_header.cpp -O2 -std=c++17 -o llg_main -lm -lfftw3 && ./llg_main",
             "group": {
                 "kind": "build",
                 "isDefault": true

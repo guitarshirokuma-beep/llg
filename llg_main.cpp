@@ -2,11 +2,12 @@
 #include<fstream>
 #include<vector>
 #include"llg.h"
+#include<fftw3.h>
 using namespace std;
 
 int main(){
-	const int Lx = 3;
-	const int N_steps = 2000;
+	const int Lx = 2048;
+	const int N_steps = 2048;
 	const double lam = 0.05;
 	const double h_app_norm = 10.102;
 	const double J = 10.0;
