@@ -2,7 +2,6 @@
 #include<fstream>
 #include<vector>
 #include"llg.h"
-#include<fftw3.h>
 using namespace std;
 
 int main(){
