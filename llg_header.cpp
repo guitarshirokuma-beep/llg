@@ -101,17 +101,17 @@ void Make1DArray::normalize(){
 void initialize(Params& p, Make2DArray& S, Make2DArray& h_app){
 	for(int n=0; n<p.Lx; n++){
 		for(int step=0; step<p.N_steps; step++){
-			h_app(n, step).x = 0.0;
+			h_app(n, step).x = p.h_app_norm;
 			h_app(n, step).y = 0.0;
-			h_app(n, step).z = p.h_app_norm;
+			h_app(n, step).z = 0.0;
 		}
 	}
 
 	int step = 0;
 	for(int n=0; n<p.Lx; n++){
-		S(n, step).x = 1.0;
+		S(n, step).x = 0.0;
 		S(n, step).y = 0.0;
-		S(n, step).z = 0.0;
+		S(n, step).z = 1.0;
 	}
 }
 
@@ -160,7 +160,7 @@ void output_data(const Params& p, const Make2DArray& S){
 	int n = 0;
 	ofs << "# step S(n=0, step).x\n";
 	for(int step=0; step<p.N_steps; step++){
-		ofs << step << " " << S(n, step).x << "\n";
+		ofs << step << " " << S(n, step).z << "\n";
 	}
 }
 
