@@ -19,5 +19,6 @@ int main(){
 	output_data(p, S);
 	output_params(p);
 	Make1DArray S_old = Make1DArray::extract(p, S, 0);
+	S_old = fft_1d(p, S_old);
 	return 0;
 }

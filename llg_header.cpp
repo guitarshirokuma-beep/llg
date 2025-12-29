@@ -2,6 +2,7 @@
 #include<fstream>
 #include<vector>
 #include<cmath>
+#include<fftw3.h>
 #include"llg.h"
 
 Data Data::cross(const Data& other) const{
@@ -191,4 +192,26 @@ Make1DArray calc_h_exc(const Params& p, const Make1DArray& S_old){
 		h_exc(n) = p.J*h_exc(n);
 	}
 	return h_exc;
+}
+
+Make1DArray& fft_1d(const Params& p, Make1DArray& S){
+	fftw_complex *in, *out;
+	in = (fftw_complex*) fftw_malloc(sizeof(fftw_complex) * p.N_steps);
+	out = (fftw_complex*) fftw_malloc(sizeof(fftw_complex) * p.N_steps);
+
+	fftw_plan plan = fftw_plan_dft_1d(p.N_steps, in, out, FFTW_FORWARD, FFTW_MEASURE);
+	
+	for(int step=0; step<p.N_steps; step++){
+		in[step][0] = S(step).x;
+		in[step][1] = 0.0;
+	}
+	fftw_execute(plan);
+	for(int step=0; step<p.N_steps; step++){
+		double real = in[step][0];
+		double imag = in[step][1];
+		S(step).x = sqrt(real*real + imag*imag);
+	}
+	fftw_free(in);
+	fftw_free(out);
+	return S;
 }
