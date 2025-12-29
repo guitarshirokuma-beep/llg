@@ -53,6 +53,8 @@ void input(const Params& p,Make2DArray& S, const Make1DArray& S_new, int step);
 
 void output_data(const Params& p, const Make2DArray& S);
 
+void output_data(const Params& p, const Make1DArray& S);
+
 void output_params(const Params& p);
 
 Make1DArray calc_h_exc(const Params& p, const Make1DArray& S_old);

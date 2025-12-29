@@ -18,7 +18,10 @@ int main(){
 	run_llg(p, S, h_app);
 	output_data(p, S);
 	output_params(p);
-	Make1DArray S_old = Make1DArray::extract(p, S, 0);
-	S_old = fft_1d(p, S_old);
+	Make1DArray S_n0_step(p.N_steps);
+	for(int step=0; step<p.N_steps; step++){
+		S_n0_step(step) = S(0, step);
+	}
+	S_n0_step = fft_1d(p, S_n0_step);
 	return 0;
 }
