@@ -167,7 +167,6 @@ void output_data(const Params& p, const Make2DArray& S){
 
 void output_data(const Params& p, const Make1DArray& S){
     ofstream ofs("llg.dat");
-	cout << "test\n";
 	ofs << "# step S(step).y\n";
 	for(int step=0; step<p.N_steps; step++){
 		ofs << step << " " << S(step).y << "\n";
@@ -211,14 +210,14 @@ Make1DArray& fft_1d(const Params& p, Make1DArray& S){
 	fftw_plan plan = fftw_plan_dft_1d(p.N_steps, in, out, FFTW_FORWARD, FFTW_MEASURE);
 	
 	for(int step=0; step<p.N_steps; step++){
-		in[step][0] = S(step).x;
+		in[step][0] = S(step).y;
 		in[step][1] = 0.0;
 	}
 	fftw_execute(plan);
 	for(int step=0; step<p.N_steps; step++){
-		double real = in[step][0];
-		double imag = in[step][1];
-		S(step).x = sqrt(real*real + imag*imag);
+		double real = out[step][0];
+		double imag = out[step][1];
+		S(step).y = sqrt(real*real + imag*imag);
 	}
 	fftw_free(in);
 	fftw_free(out);
