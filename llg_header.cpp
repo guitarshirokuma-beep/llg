@@ -96,8 +96,8 @@ Make1DArray extract_const_step(const Params& p, const Make2DArray& S_2d, const i
 
 Make1DArray extract_const_n(const Params& p, const Make2DArray& S_2d, const int n){
 	Make1DArray S_1d(p.N_steps);
-	for(int step=0; n<p.N_steps; step++){
-		S_1d(n) = S_2d(n, step);
+	for(int step=0; step<p.N_steps; step++){
+		S_1d(step) = S_2d(n, step);
 	}
 	return S_1d;
 }

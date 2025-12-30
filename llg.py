@@ -3,7 +3,6 @@ import matplotlib.pyplot as plt
 import matplotlib.ticker as ticker
 import numpy as np
 import llg_plot
-print(matplotlib.get_backend())
 import importlib
 importlib.reload(llg_plot)
 
@@ -26,8 +25,8 @@ m_n0_step_x = llg_data[:, 1]
 figsize=(8,6)
 fontsize=15
 title_text = rf'$Lx = {Lx}, hz = {h_app_norm}, dt = {dt}, J = , \lambda = {lam}, k = , \omega = $'
-xlim = Lx/40
-ylim = 1.7e2
+xlim = Lx
+ylim = 1.1
 xlabel = r'Step'
 ylabel = r'$m_y$'
 x_data = step
