@@ -1,8 +1,8 @@
+import matplotlib
 import matplotlib.pyplot as plt
 import matplotlib.ticker as ticker
 import numpy as np
 import llg_plot
-import matplotlib
 print(matplotlib.get_backend())
 import importlib
 importlib.reload(llg_plot)

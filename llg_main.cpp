@@ -25,7 +25,7 @@ int main(){
 	output_data(p, S_n0_step);
 	double peak = p.h_app_norm * p.gamma;
 	double pi = 3.1415;
-	double k_peak = peak * (double)p.Lx * p.dt / (2.0 * pi);
+	double k_peak = peak * (double)p.N_steps * p.dt / (2.0 * pi);
 	cout << k_peak << "\n"; 
 	return 0;
 }
