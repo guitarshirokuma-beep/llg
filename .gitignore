@@ -2,3 +2,12 @@ __pycache__/
 *.pyc
 *.pyo
 *.pyd
+
+.venv/
+venv/
+
+.vscode/
+
+llg_main
+
+*.dat
