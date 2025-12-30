@@ -23,3 +23,4 @@ def output_graph(
     ax.set_ylim(-ylim, ylim)
     ax.plot(x_data, y_data, label=legend_text)
     ax.legend(fontsize=fontsize)
+    plt.show()
