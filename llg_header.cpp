@@ -84,13 +84,22 @@ Make1DArray operator*(double c, const Make1DArray& a){
 	return result;
 }
 
-Make1DArray Make1DArray::extract(const Params& p 
-									,const Make2DArray& S, int step){
-	Make1DArray S_old(p.Lx);
+
+
+Make1DArray extract_const_step(const Params& p, const Make2DArray& S_2d, const int step){
+	Make1DArray S_1d(p.Lx);
 	for(int n=0; n<p.Lx; n++){
-		S_old(n) = S(n, step); 
+		S_1d(n) = S_2d(n, step);
 	}
-	return S_old;
+	return S_1d;
+}
+
+Make1DArray extract_const_n(const Params& p, const Make2DArray& S_2d, const int n){
+	Make1DArray S_1d(p.N_steps);
+	for(int step=0; n<p.N_steps; step++){
+		S_1d(n) = S_2d(n, step);
+	}
+	return S_1d;
 }
 
 void Make1DArray::normalize(){
@@ -143,7 +152,7 @@ Make1DArray calc_dSdt(Params& p, Make1DArray& S_step
 
 void run_llg(Params& p, Make2DArray& S, Make2DArray& h_app){
 	for(int step=0; step<p.N_steps-1; step++){
-		Make1DArray S_old = Make1DArray::extract(p, S, step);
+		Make1DArray S_old = extract_const_step(p, S, step);
 		Make1DArray h_exc = calc_h_exc(p, S_old);
 		Make1DArray dS_over_dt = calc_dSdt(p, S_old, h_app, h_exc, step);
 		Make1DArray S_pred = S_old + p.dt * dS_over_dt;

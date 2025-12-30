@@ -17,10 +17,7 @@ int main(){
 	initialize(p, S, h_app);
 	run_llg(p, S, h_app);
 	output_params(p);
-	Make1DArray S_n0_step(p.N_steps);
-	for(int step=0; step<p.N_steps; step++){
-		S_n0_step(step) = S(0, step);
-	}
+	Make1DArray S_n0_step = extract_const_n(p, S, 0);	
 	S_n0_step = fft_1d(p, S_n0_step);
 	output_data(p, S_n0_step);
 	double peak = p.h_app_norm * p.gamma;
@@ -29,4 +26,3 @@ int main(){
 	cout << k_peak << "\n"; 
 	return 0;
 }
-// make extract_const_time

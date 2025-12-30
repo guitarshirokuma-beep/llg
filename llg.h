@@ -37,10 +37,12 @@ class Make1DArray{
 		Make1DArray operator+(const Make1DArray& other) const;
 		Make1DArray& operator+=(const Make1DArray& other);
 		friend Make1DArray operator*(double c, const Make1DArray& a);
-		static Make1DArray extract(const Params& p
-								,const Make2DArray& S, int step);
 		void normalize();
 };
+
+Make1DArray extract_const_step(const Params& p, const Make2DArray& S_2d, const int step);
+
+Make1DArray extract_const_n(const Params& p, const Make2DArray& S_2d, const int n);
 
 void initialize(Params& p, Make2DArray& S, Make2DArray& h_app);
 
