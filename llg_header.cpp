@@ -232,3 +232,7 @@ Make1DArray& fft_1d(const Params& p, Make1DArray& S){
 	fftw_free(out);
 	return S;
 }
+
+Make2DArray& fft_2d(const Params& p, Make2DArray& S){
+	return S;
+	}
