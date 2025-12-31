@@ -18,7 +18,9 @@ int main(){
 	initialize(p, S, h_app);
 	run_llg(p, S, h_app);
 	Make1DArray S_n0_step = extract_const_n(p, S, 0);	
-	S_n0_step = fft_1d(p, S_n0_step);
+	S_n0_step = fft_1d_time(p, S_n0_step);
 	output_data(p, S_n0_step);
+	//test
+	S = fft_2d(p, S);
 	return 0;
 }

@@ -211,7 +211,7 @@ Make1DArray calc_h_exc(const Params& p, const Make1DArray& S_old){
 	return h_exc;
 }
 
-Make1DArray& fft_1d(const Params& p, Make1DArray& S){
+Make1DArray& fft_1d_time(const Params& p, Make1DArray& S){
 	fftw_complex *in, *out;
 	in = (fftw_complex*) fftw_malloc(sizeof(fftw_complex) * p.N_steps);
 	out = (fftw_complex*) fftw_malloc(sizeof(fftw_complex) * p.N_steps);
@@ -234,5 +234,29 @@ Make1DArray& fft_1d(const Params& p, Make1DArray& S){
 }
 
 Make2DArray& fft_2d(const Params& p, Make2DArray& S){
+	fftw_complex *in, *out;
+	in = (fftw_complex*) fftw_malloc(sizeof(fftw_complex) * (p.Lx*p.N_steps));
+	out = (fftw_complex*) fftw_malloc(sizeof(fftw_complex) * (p.Lx*p.N_steps));
+
+	fftw_plan plan = fftw_plan_dft_2d(p.Lx, p.N_steps, in, out, FFTW_FORWARD, FFTW_MEASURE);
+	for(int n=0; n<p.Lx; n++){
+		for(int step=0; step<p.N_steps; step++){
+			int idx = n*p.N_steps + step;
+			in[idx][0] = S(n, step).y;
+			in[idx][1] = 0.0;	
+		}
+	}
+	fftw_execute(plan);
+	for(int n=0; n<p.Lx; n++){
+		for(int step=0; step<p.N_steps; step++){
+			int idx = n*p.N_steps + step;
+			double real = out[idx][0];
+			double imag = out[idx][1];
+			S(n, step).y = sqrt(real*real + imag*imag);
+		}
+	}
+	fftw_free(in);
+	fftw_free(out);
+	cout << "test\n";
 	return S;
 	}
