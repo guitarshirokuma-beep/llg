@@ -167,10 +167,11 @@ void run_llg(Params& p, Make2DArray& S, Make2DArray& h_app){
 
 void output_data(const Params& p, const Make2DArray& S){
     ofstream ofs("llg.dat");
-	int n = 0;
-	ofs << "# step S(n=0, step).y\n";
-	for(int step=0; step<p.N_steps; step++){
-		ofs << step << " " << S(n, step).y << "\n";
+	ofs << "# k omega S(k, omega).y\n";
+	for(int k=0; k<p.Lx; k++){
+		for(int omega=0; omega<p.N_steps; omega++){
+			ofs << k << " " << omega << " " << S(k, omega).y << "\n";
+		}
 	}
 }
 

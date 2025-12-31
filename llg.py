@@ -19,8 +19,7 @@ J = params_data[6]
 title_text = rf'$Lx = {Lx}, hz = {h_app_norm}, dt = {dt}, J = , \lambda = {lam}, k = , \omega = $'
 
 llg_data = np.loadtxt("llg.dat")
-step = llg_data[:, 0]
-m_n0_step_x = llg_data[:, 1]
+S = llg_data[:, 2]
 
 figsize=(8,6)
 fontsize=15
@@ -29,24 +28,17 @@ xlim = Lx
 ylim = 1.1
 xlabel = r'Step'
 ylabel = r'$m_y$'
-x_data = step
-y_data = m_n0_step_x
 legend_text = r'$m_x( n = 0, t )$'
+minimum = 1
 
-llg_plot.output_graph(
-    fontsize,
-    title_text,
-    xlim,
-    xlabel,
-    x_data,
-    ylim,
-    ylabel,
-    y_data,
-    legend_text,
+llg_plot.out_put_heatmap(
+    Lx,
+    N_steps,
+    S,
+    dt,
+    minimum,
     figsize,
 )
-
-
 
 
 
