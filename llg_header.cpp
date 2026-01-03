@@ -195,6 +195,20 @@ void output_data(const Params& p, const Make1DArray& S, char axis){
 	ofs.close();
 }
 
+void output_data(const Params& p, const Make2DArray& S){
+	ofstream ofs("llg.dat");
+	ofs << "# n step S(n, step).y\n";
+	int count = 0;
+	for(int n=0; n<p.Lx; n++){
+		for(int step=0; step<p.N_steps; step++){
+			ofs << n << " " << step << " " << S(n, step).y << "\n";
+			count++;
+		}
+	}
+	ofs.close();
+	cout << count << "\n";
+}
+
 
 void output_params(const Params& p){
 	cout << "Lx = " << p.Lx << "\n";
@@ -223,28 +237,6 @@ Make1DArray calc_h_exc(const Params& p, const Make1DArray& S_old){
 		h_exc(n) = p.J*h_exc(n);
 	}
 	return h_exc;
-}
-
-Make1DArray& fft_1d_time(const Params& p, Make1DArray& S){
-	fftw_complex *in, *out;
-	in = (fftw_complex*) fftw_malloc(sizeof(fftw_complex) * p.N_steps);
-	out = (fftw_complex*) fftw_malloc(sizeof(fftw_complex) * p.N_steps);
-
-	fftw_plan plan = fftw_plan_dft_1d(p.N_steps, in, out, FFTW_FORWARD, FFTW_MEASURE);
-	
-	for(int step=0; step<p.N_steps; step++){
-		in[step][0] = S(step).y;
-		in[step][1] = 0.0;
-	}
-	fftw_execute(plan);
-	for(int step=0; step<p.N_steps; step++){
-		double real = out[step][0];
-		double imag = out[step][1];
-		S(step).y = sqrt(real*real + imag*imag);
-	}
-	fftw_free(in);
-	fftw_free(out);
-	return S;
 }
 
 Make1DArray& fft_1d_time(const Params& p, Make1DArray& S, char axis){
@@ -303,7 +295,7 @@ Make1DArray& fft_1d_time(const Params& p, Make1DArray& S, char axis){
 	default:
 		break;
 	}
-	
+
 	fftw_free(in);
 	fftw_free(out);
 	return S;

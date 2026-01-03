@@ -19,8 +19,7 @@ J = params_data[6]
 title_text = rf'$Lx = {Lx}, hz = {h_app_norm}, dt = {dt}, J = , \lambda = {lam}, k = , \omega = $'
 
 llg_data = np.loadtxt("llg.dat")
-x_data = llg_data[:, 0]
-y_data = llg_data[:, 1]
+h_k_omega = llg_data[:, 2]
 
 figsize=(8,6)
 fontsize=15
@@ -30,14 +29,10 @@ ylabel = r'$m_y$'
 legend_text = r'$m_x( n = 0, t )$'
 minimum = 1
 
-llg_plot.output_normal_graph(
-    fontsize,
-    title_text,
-    xlabel,
-    x_data,
-    ylabel,
-    y_data,
-    legend_text,
-    figsize,
+llg_plot.output_heatmap(
+    Lx,
+    N_steps,
+    h_k_omega,
+    dt,
+    minimum,
 )
-
