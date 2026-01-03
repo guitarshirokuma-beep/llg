@@ -9,6 +9,7 @@ class Params{
 		double h_app_norm;
 		const double dt = 0.01;
 		const double gamma = 1.0;
+		const double sigma = 1.0;
 		double J;
 		Params(int Lx_
 				, int N_steps_
