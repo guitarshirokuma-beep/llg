@@ -20,8 +20,8 @@ int main(){
 	run_llg(p, S, h_app);
 	Make1DArray S_n0_step = extract_const_n(p, S, 0);	
 	Make1DArray h_n0_step = extract_const_n(p, h_app, 0);
+	h_n0_step = fft_1d_time(p, h_n0_step, 'x');
 	output_data(p, h_n0_step, 'x');
-	S_n0_step = fft_1d_time(p, S_n0_step);
 	//test
 	S = fft_2d(p, S);
 	return 0;

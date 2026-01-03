@@ -4,6 +4,7 @@
 #include<cmath>
 #include<fftw3.h>
 #include"llg.h"
+using namespace std;
 
 Data Data::cross(const Data& other) const{
 	return {
@@ -169,26 +170,31 @@ void run_llg(Params& p, Make2DArray& S, Make2DArray& h_app){
 
 void output_data(const Params& p, const Make1DArray& S, char axis){
 	ofstream ofs("llg.dat");
-	if(axis == 'x'){
+	switch (axis){
+	case 'x':
 		ofs << "# step S(step).x\n";
 		for(int step=0; step<p.N_steps; step++){
 			ofs << step << " " << S(step).x << "\n";
 		}
-	}
-	else if(axis == 'y'){
+		break;
+	case 'y':
 		ofs << "# step S(step).y\n";
 		for(int step=0; step<p.N_steps; step++){
 			ofs << step << " " << S(step).y << "\n";
 		}
-	}
-	else if(axis == 'z'){
+		break;
+	case 'z':
 		ofs << "# step S(step).z\n";
 		for(int step=0; step<p.N_steps; step++){
 			ofs << step << " " << S(step).z << "\n";
 		}
+		break;
+	default:
+		throw invalid_argument("axis must be x, y, or z");
 	}
 	ofs.close();
 }
+
 
 void output_params(const Params& p){
 	cout << "Lx = " << p.Lx << "\n";
@@ -236,6 +242,68 @@ Make1DArray& fft_1d_time(const Params& p, Make1DArray& S){
 		double imag = out[step][1];
 		S(step).y = sqrt(real*real + imag*imag);
 	}
+	fftw_free(in);
+	fftw_free(out);
+	return S;
+}
+
+Make1DArray& fft_1d_time(const Params& p, Make1DArray& S, char axis){
+	fftw_complex *in, *out;
+	in = (fftw_complex*) fftw_malloc(sizeof(fftw_complex) * p.N_steps);
+	out = (fftw_complex*) fftw_malloc(sizeof(fftw_complex) * p.N_steps);
+
+	fftw_plan plan = fftw_plan_dft_1d(p.N_steps, in, out, FFTW_FORWARD, FFTW_MEASURE);
+
+	switch (axis)
+	{
+	case 'x':
+		for(int step=0; step<p.N_steps; step++){
+			in[step][0] = S(step).x;
+			in[step][1] = 0.0;
+		}
+		break;
+	case 'y':
+		for(int step=0; step<p.N_steps; step++){
+			in[step][0] = S(step).y;
+			in[step][1] = 0.0;
+		}
+		break;
+	case 'z':
+		for(int step=0; step<p.N_steps; step++){
+			in[step][0] = S(step).z;
+			in[step][1] = 0.0;
+		}
+		break;
+	default:
+		throw invalid_argument("axis must be x, y, or z");
+	}
+
+	fftw_execute(plan);
+
+	switch (axis)
+	{
+	case 'x':
+		for(int step=0; step<p.N_steps; step++){
+			double amp = sqrt(out[step][0]*out[step][0] + out[step][1]*out[step][1]);
+			S(step).x = amp;
+		}
+		break;
+	case 'y':
+		for(int step=0; step<p.N_steps; step++){
+			double amp = sqrt(out[step][0]*out[step][0] + out[step][1]*out[step][1]);
+			S(step).y = amp;
+		}
+		break;
+	case 'z':
+		for(int step=0; step<p.N_steps; step++){
+			double amp = sqrt(out[step][0]*out[step][0] + out[step][1]*out[step][1]);
+			S(step).z = amp;
+		}
+		break;
+	default:
+		break;
+	}
+	
 	fftw_free(in);
 	fftw_free(out);
 	return S;

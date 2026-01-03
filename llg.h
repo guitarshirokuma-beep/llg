@@ -61,6 +61,8 @@ Make1DArray calc_h_exc(const Params& p, const Make1DArray& S_old);
 
 Make1DArray& fft_1d_time(const Params& p, Make1DArray& S);
 
+Make1DArray& fft_1d_time(const Params& p, Make1DArray& S, char axis);
+
 Make2DArray& fft_2d(const Params& p, Make2DArray& S);
 
 #endif
