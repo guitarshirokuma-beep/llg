@@ -113,7 +113,7 @@ void initialize(Params& p, Make2DArray& S, Make2DArray& h_app){
         for(int step=0; step<p.N_steps; step++){
 			double pulse_center = p.N_steps / 4.0;
 			double pulse = exp( -0.5*pow( (step - pulse_center)/(p.sigma), 2 ) );
-			 h_app(n, step).x = p.h_app_norm * pulse;
+			 h_app(n, step).x = p.pulse_norm * pulse;
              h_app(n, step).y = 0.0;
              h_app(n, step).z = p.h_app_norm;
          }
@@ -167,22 +167,27 @@ void run_llg(Params& p, Make2DArray& S, Make2DArray& h_app){
 	}
 }
 
-void output_data(const Params& p, const Make2DArray& S){
-    ofstream ofs("llg.dat");
-	ofs << "# k omega S(k, omega).y\n";
-	for(int k=0; k<p.Lx; k++){
-		for(int omega=0; omega<p.N_steps; omega++){
-			ofs << k << " " << omega << " " << S(k, omega).y << "\n";
+void output_data(const Params& p, const Make1DArray& S, char axis){
+	ofstream ofs("llg.dat");
+	if(axis == 'x'){
+		ofs << "# step S(step).x\n";
+		for(int step=0; step<p.N_steps; step++){
+			ofs << step << " " << S(step).x << "\n";
 		}
 	}
-}
-
-void output_data(const Params& p, const Make1DArray& S){
-    ofstream ofs("llg.dat");
-	ofs << "# step S(step).y\n";
-	for(int step=0; step<p.N_steps; step++){
-		ofs << step << " " << S(step).y << "\n";
+	else if(axis == 'y'){
+		ofs << "# step S(step).y\n";
+		for(int step=0; step<p.N_steps; step++){
+			ofs << step << " " << S(step).y << "\n";
+		}
 	}
+	else if(axis == 'z'){
+		ofs << "# step S(step).z\n";
+		for(int step=0; step<p.N_steps; step++){
+			ofs << step << " " << S(step).z << "\n";
+		}
+	}
+	ofs.close();
 }
 
 void output_params(const Params& p){

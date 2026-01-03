@@ -11,7 +11,7 @@ int main(){
 	const double h_app_norm = 10;
 	const double pulse_norm = 1.0;
 	const double J = 10.0;
-	const double sigma = 10;
+	const double sigma = 10.0;
 	Params p(Lx, N_steps, lam, h_app_norm, pulse_norm, J);
 	output_params(p);
 	Make2DArray S(p.Lx, p.N_steps);
@@ -19,8 +19,9 @@ int main(){
 	initialize(p, S, h_app);
 	run_llg(p, S, h_app);
 	Make1DArray S_n0_step = extract_const_n(p, S, 0);	
+	Make1DArray h_n0_step = extract_const_n(p, h_app, 0);
+	output_data(p, h_n0_step, 'x');
 	S_n0_step = fft_1d_time(p, S_n0_step);
-	output_data(p, S_n0_step);
 	//test
 	S = fft_2d(p, S);
 	return 0;
