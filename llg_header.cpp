@@ -112,9 +112,8 @@ void Make1DArray::normalize(){
 void initialize(Params& p, Make2DArray& S, Make2DArray& h_app){
     for(int n=0; n<p.Lx; n++){
         for(int step=0; step<p.N_steps; step++){
-			double pulse_center = p.N_steps / 4.0;
-			double pulse = exp( -0.5*pow( (step - pulse_center)/(p.sigma), 2 ) );
-			 h_app(n, step).x = p.pulse_norm * pulse;
+			double time_pulse = exp( -0.5*pow( (step - p.time_pulse_center)/(p.sigma), 2 ) );
+			 h_app(n, step).x = p.pulse_norm * time_pulse;
              h_app(n, step).y = 0.0;
              h_app(n, step).z = p.h_app_norm;
          }
