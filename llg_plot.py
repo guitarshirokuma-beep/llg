@@ -32,16 +32,13 @@ def output_heatmap(
     k_size = int(Lx)
     omega_size = int(N_steps)
     S_k_omega = np.array(S).reshape(k_size, omega_size)
-
     plt.figure()
-    # extent = [xmin, xmax, ymin, ymax]
-    # here x -> omega (frequency), y -> k
     omega_max = 2 * np.pi / float(dt)
     k_max = 2 * np.pi
     img = plt.imshow(
         S_k_omega,
         cmap='viridis',
-        vmin=minimum,
+        vmin=S_k_omega.min(),
         vmax=S_k_omega.max(),
         aspect='auto',
         origin='lower',

@@ -18,8 +18,7 @@ int main(){
 	Make2DArray h_app(p.Lx, p.N_steps);
 	initialize(p, S, h_app);
 	run_llg(p, S, h_app);
-	//test
-	S = fft_2d(p, S);
+	S = fft_2d(p, S, 'y');
 	output_data(p, S);
 	return 0;
 }
