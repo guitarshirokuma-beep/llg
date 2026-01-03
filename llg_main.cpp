@@ -9,9 +9,10 @@ int main(){
 	const int N_steps = 2048;
 	const double lam = 0.05;
 	const double h_app_norm = 10;
+	const double pulse_norm = 1.0;
 	const double J = 10.0;
 	const double sigma = 10;
-	Params p(Lx, N_steps, lam, h_app_norm, J);
+	Params p(Lx, N_steps, lam, h_app_norm, pulse_norm, J);
 	output_params(p);
 	Make2DArray S(p.Lx, p.N_steps);
 	Make2DArray h_app(p.Lx, p.N_steps);

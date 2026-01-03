@@ -44,3 +44,4 @@ llg_plot.output_normal_graph(
     legend_text,
     figsize,
 )
+
