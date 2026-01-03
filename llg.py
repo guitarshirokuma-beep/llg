@@ -25,8 +25,6 @@ y_data = llg_data[:, 1]
 figsize=(8,6)
 fontsize=15
 title_text = rf'$Lx = {Lx}, hz = {h_app_norm}, dt = {dt}, J = , \lambda = {lam}, k = , \omega = $'
-xlim = Lx
-ylim = 1.1
 xlabel = r'Step'
 ylabel = r'$m_y$'
 legend_text = r'$m_x( n = 0, t )$'
@@ -35,10 +33,8 @@ minimum = 1
 llg_plot.output_normal_graph(
     fontsize,
     title_text,
-    xlim,
     xlabel,
     x_data,
-    ylim,
     ylabel,
     y_data,
     legend_text,

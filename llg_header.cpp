@@ -115,7 +115,7 @@ void initialize(Params& p, Make2DArray& S, Make2DArray& h_app){
 			double pulse = exp( -0.5*pow( (step - pulse_center)/(p.sigma), 2 ) );
 			 h_app(n, step).x = p.h_app_norm * pulse;
              h_app(n, step).y = 0.0;
-             h_app(n, step).z = p.h_app_norm;;
+             h_app(n, step).z = p.h_app_norm;
          }
      }
  
