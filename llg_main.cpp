@@ -12,7 +12,7 @@ int main(){
 	const double pulse_norm = 1.0;
 	const double time_pulse_center = N_steps / 2.0;
 	const double local_pulse_center = Lx / 2.0;
-	const double J = 100.0;
+	const double J = 1.0;
 	const double sigma = 0.5;
 
 	Params p(Lx, N_steps, lam, h_app_norm, pulse_norm, time_pulse_center, local_pulse_center, J);

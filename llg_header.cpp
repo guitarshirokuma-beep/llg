@@ -109,11 +109,15 @@ void Make1DArray::normalize(){
 	}
 }
 
+double gaussian(int n, double center, double sigma){
+	return exp(-0.5 * pow((double(n) - center) / sigma, 2));
+}
+
 void initialize(Params& p, Make2DArray& S, Make2DArray& h_app){
     for(int n=0; n<p.Lx; n++){
         for(int step=0; step<p.N_steps; step++){
-			double local_pulse = exp( -0.5*pow( (n - p.local_pulse_center)/(p.sigma), 2 ) );
-			double time_pulse = exp( -0.5*pow( (step - p.time_pulse_center)/(p.sigma), 2 ) );
+			double local_pulse = gaussian(n, p.local_pulse_center, p.sigma);
+			double time_pulse = gaussian(step, p.time_pulse_center, p.sigma);
 			 h_app(n, step).x = p.pulse_norm * time_pulse * local_pulse;
              h_app(n, step).y = 0.0;
              h_app(n, step).z = p.h_app_norm;
@@ -139,8 +143,6 @@ Make1DArray calc_dSdt(Params& p, Make1DArray& S_step
 						, Make2DArray& h_app, Make1DArray& h_exc, int step){
 	Make1DArray dS_over_dt(p.Lx);
 	for(int n=0; n<p.Lx; n++){
-		const Data& S_ = S_step(n);
-		const Data& h_ = h_app(n, step) + h_exc(n);
 
 		Data Sxh = S_step(n).cross(h_app(n, step));
 		Data SxSxh = S_step(n).cross(Sxh);
@@ -229,9 +231,9 @@ void output_params(const Params& p){
 Make1DArray calc_h_exc(const Params& p, const Make1DArray& S_old){
 	Make1DArray h_exc(p.Lx);
 	for(int n=0; n<p.Lx; n++){
-		h_exc(n) = S_old((n-1+p.Lx)%p.Lx);
-		h_exc(n) += S_old((n+1)%p.Lx);
-		h_exc(n) = p.J*h_exc(n);
+		h_exc(n) = S_old((n-1+p.Lx) % p.Lx);
+		h_exc(n) += S_old((n+1) % p.Lx);
+		h_exc(n) = p.J * h_exc(n);
 	}
 	return h_exc;
 }

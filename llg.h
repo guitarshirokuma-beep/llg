@@ -65,4 +65,6 @@ Make1DArray& fft_1d_time(const Params& p, Make1DArray& S, char axis);
 
 Make2DArray& fft_2d(const Params& p, Make2DArray& S, char axis);
 
+double gaussian(int n, double center, double sigma);
+
 #endif
