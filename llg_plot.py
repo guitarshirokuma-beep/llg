@@ -31,7 +31,11 @@ def output_heatmap(
 ):
     k_size = int(Lx)
     omega_size = int(N_steps)
-    S_k_omega = np.array(S).reshape(k_size, omega_size)
+    # original layout: rows = k, cols = omega
+    S_omega_k = np.array(S).reshape(k_size, omega_size)
+    # swap axes so rows = omega, cols = k
+    S_k_omega = S_omega_k.T
+
     plt.figure()
     omega_max = 2 * np.pi / float(dt)
     k_max = 2 * np.pi
@@ -43,12 +47,12 @@ def output_heatmap(
         aspect='auto',
         origin='lower',
         interpolation='nearest',
-        extent=[0, omega_max, 0, k_max]
+        extent=[0, k_max, 0, omega_max]
     )
     cbar = plt.colorbar(img)
     cbar.ax.tick_params(labelsize=15)
-    plt.xlabel('omega')
-    plt.ylabel('k')
+    plt.xlabel('k')
+    plt.ylabel('omega')
     plt.show()
     # quick diagnostics
-    print("shape:", S_k_omega.shape, "min:", S_k_omega.min(), "max:", S_k_omega.max())
+    print("shape (k,omega):", S_k_omega.shape, "min:", S_k_omega.min(), "max:", S_k_omega.max())
