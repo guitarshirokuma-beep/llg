@@ -88,7 +88,7 @@ Make1DArray operator*(double c, const Make1DArray& a){
 Make1DArray extract_const_step(
 	const Params&		p,
 	const Make2DArray&	S_2d,
-	const int			step
+	int					step
 ){
 	Make1DArray S_1d(p.Lx);
 	for(int n=0; n<p.Lx; n++){
@@ -100,7 +100,7 @@ Make1DArray extract_const_step(
 Make1DArray extract_const_n(
 	const Params&		p,
 	const Make2DArray&	S_2d,
-	const int			n
+	int					n
 ){
 	Make1DArray S_1d(p.N_steps);
 	for(int step=0; step<p.N_steps; step++){
@@ -138,15 +138,24 @@ void initialize(Params& p, Make2DArray& S, Make2DArray& h_app){
      }
  }
 
-void input(const Params& p 
-			,Make2DArray& S,const Make1DArray& S_new, int step){
+void input(
+	const Params&		p,
+	Make2DArray&		S,
+	const Make1DArray&	S_new,
+	int					step
+){
 	for(int n=0; n<p.Lx; n++){
 		S(n, step) = S_new(n);
 	}
 }
 
-Make1DArray calc_dSdt(Params& p, Make1DArray& S_step
-						, Make2DArray& h_app, Make1DArray& h_exc, int step){
+Make1DArray calc_dSdt(
+	const Params&		p,
+	const Make1DArray&	S_step,
+	const Make2DArray&	h_app,
+	const Make1DArray&	h_exc,
+	int					step
+){
 	Make1DArray dS_over_dt(p.Lx);
 	for(int n=0; n<p.Lx; n++){
 		Data h = h_app(n, step) + h_exc(n);
@@ -161,7 +170,11 @@ Make1DArray calc_dSdt(Params& p, Make1DArray& S_step
 	return dS_over_dt;
 }
 
-void run_llg(Params& p, Make2DArray& S, Make2DArray& h_app){
+void run_llg(
+	const Params&		p,
+	Make2DArray&		S,
+	const Make2DArray&	h_app
+){
 	for(int step=0; step<p.N_steps-1; step++){
 		Make1DArray S_old = extract_const_step(p, S, step);
 		Make1DArray h_exc = calc_h_exc(p, S_old);
@@ -176,7 +189,11 @@ void run_llg(Params& p, Make2DArray& S, Make2DArray& h_app){
 	}
 }
 
-void output_data(const Params& p, const Make1DArray& S, char axis){
+void output_data(
+	const Params&		p,
+	const Make1DArray&	S,
+	char				axis
+){
 	ofstream ofs("llg.dat");
 	switch (axis){
 	case 'x':
@@ -203,7 +220,10 @@ void output_data(const Params& p, const Make1DArray& S, char axis){
 	ofs.close();
 }
 
-void output_data(const Params& p, const Make2DArray& S){
+void output_data(
+	const Params&		p,
+	const Make2DArray&	S
+){
 	ofstream ofs("llg.dat");
 	ofs << "# n step S(n, step).y\n";
 	for(int n=0; n<p.Lx; n++){
@@ -234,7 +254,10 @@ void output_params(const Params& p){
 	ofs << p.J << "\n";
 }
 
-Make1DArray calc_h_exc(const Params& p, const Make1DArray& S_old){
+Make1DArray calc_h_exc(
+	const Params&		p,
+	const Make1DArray&	S_old
+){
 	Make1DArray h_exc(p.Lx);
 	for(int n=0; n<p.Lx; n++){
 		h_exc(n) = S_old((n-1+p.Lx) % p.Lx);
@@ -244,7 +267,11 @@ Make1DArray calc_h_exc(const Params& p, const Make1DArray& S_old){
 	return h_exc;
 }
 
-Make1DArray& fft_1d_time(const Params& p, Make1DArray& S, char axis){
+Make1DArray& fft_1d_time(
+	const Params&	p,
+	Make1DArray&	S,
+	char			axis
+){
 	fftw_complex *in, *out;
 	in = (fftw_complex*) fftw_malloc(sizeof(fftw_complex) * p.N_steps);
 	out = (fftw_complex*) fftw_malloc(sizeof(fftw_complex) * p.N_steps);
@@ -306,7 +333,11 @@ Make1DArray& fft_1d_time(const Params& p, Make1DArray& S, char axis){
 	return S;
 }
 
-Make2DArray& fft_2d(const Params& p, Make2DArray& S, char axis){
+Make2DArray& fft_2d(
+	const Params&	p,
+	Make2DArray&	S,
+	char			axis
+){
 	fftw_complex *in, *out;
 	in = (fftw_complex*) fftw_malloc(sizeof(fftw_complex) * (p.Lx*p.N_steps));
 	out = (fftw_complex*) fftw_malloc(sizeof(fftw_complex) * (p.Lx*p.N_steps));

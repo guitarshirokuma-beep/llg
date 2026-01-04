@@ -43,36 +43,72 @@ class Make1DArray{
 Make1DArray extract_const_step(
 	const Params&		p,
 	const Make2DArray&	S_2d,
-	const int			step
+	int					step
 );
 
 Make1DArray extract_const_n(
 	const Params&		p,
 	const Make2DArray&	S_2d,
-	const int n
+	int 				n
 );
 
 void initialize(Params& p, Make2DArray& S, Make2DArray& h_app);
 
-void run_llg(Params& p, Make2DArray& S, Make2DArray& h_app);
+void run_llg(
+	const Params&		p,
+	Make2DArray&		S,
+	const Make2DArray&	h_app
+);
 
-Make1DArray calc_dSdt(Params& p, Make1DArray& S
-						, Make2DArray& h_app, Make1DArray& h_exc,int step);
+Make1DArray calc_dSdt(
+	const Params&		p,
+	const Make1DArray&	S,
+	const Make2DArray&	h_app,
+	const Make1DArray&	h_exc,
+	int					step
+);
 
-void input(const Params& p,Make2DArray& S, const Make1DArray& S_new, int step);
+void input(
+	const Params&		p,
+	Make2DArray&		S,
+	const Make1DArray&	S_new,
+	int					step
+);
 
-void output_data(const Params& p, const Make1DArray& S, char axis);
+void output_data(
+	const Params&		p,
+	const Make1DArray&	S,
+	char 				axis
+);
 
-void output_data(const Params& p, const Make2DArray& S);
+void output_data(
+	const Params&		p,
+	const Make2DArray&	S
+);
 
 void output_params(const Params& p);
 
-Make1DArray calc_h_exc(const Params& p, const Make1DArray& S_old);
+Make1DArray calc_h_exc(
+	const Params&		p,
+	const Make1DArray&	S_old
+);
 
-Make1DArray& fft_1d_time(const Params& p, Make1DArray& S, char axis);
+Make1DArray& fft_1d_time(
+	const Params&	p,
+	Make1DArray&	S,
+	char			axis
+);
 
-Make2DArray& fft_2d(const Params& p, Make2DArray& S, char axis);
+Make2DArray& fft_2d(
+	const Params&	p,
+	Make2DArray&	S,
+	char			axis
+);
 
-double gaussian(int n, double center, double sigma);
+double gaussian(
+	int		n,
+	double	center,
+	double	sigma
+);
 
 #endif
