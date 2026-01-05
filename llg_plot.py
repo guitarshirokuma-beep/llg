@@ -23,11 +23,12 @@ def output_normal_graph(
     plt.show()
 
 def output_heatmap(
-        Lx,
-        N_steps,
-        S,
-        dt,
-        minimum,
+    Lx,
+    N_steps,
+    S,
+    dt,
+    h_app_norm,
+    J,
 ):
     k_size = int(Lx)
     omega_size = int(N_steps)
@@ -39,11 +40,20 @@ def output_heatmap(
     plt.figure()
     omega_max = 2 * np.pi / float(dt)
     k_max = 2 * np.pi
+
+    data_max = S_k_omega.max()
+    data_min = S_k_omega.min()
+
+    if data_min <= 0.0:
+        print("Data contains non-positive values.")
+    norm = LogNorm(
+        vmin=float(data_min),
+        vmax=float(data_max)
+        )
     img = plt.imshow(
         S_k_omega,
         cmap='viridis',
-        vmin=S_k_omega.min(),
-        vmax=S_k_omega.max(),
+        norm=norm,
         aspect='auto',
         origin='lower',
         interpolation='nearest',
@@ -53,6 +63,11 @@ def output_heatmap(
     cbar.ax.tick_params(labelsize=15)
     plt.xlabel('k')
     plt.ylabel('omega')
+    #ideal plot
+    k_array = np.arange(k_max)
+    ideal_array = h_app_norm + 2*J*( 1-np.cos(k_array) )
+    plt.plot(k_array, ideal_array, label="Ideal Line")
     plt.show()
     # quick diagnostics
     print("shape (k,omega):", S_k_omega.shape, "min:", S_k_omega.min(), "max:", S_k_omega.max())
+
