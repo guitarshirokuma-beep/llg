@@ -284,6 +284,7 @@ void output_params(const Params& p){
 	cout << "gamma = " << p.gamma << "\n";
 	cout << "J = " << p.J << "\n";
 	cout << "sigma = " << p.sigma << "\n";
+	cout << "delta = " << p.delta << "\n";
 
 	ofstream ofs("llg_params.dat");
 	ofs <<  p.Lx << "\n";
@@ -294,6 +295,7 @@ void output_params(const Params& p){
 	ofs << p.gamma << "\n";
 	ofs << p.J << "\n";
 	ofs << p.sigma << "\n";
+	ofs << p.delta << "\n";
 }
 
 Make1DArray calc_h_exc(
@@ -455,4 +457,17 @@ Make2DArray& fft_2d(
 	fftw_free(in);
 	fftw_free(out);
 	return S;
+}
+
+void avoid_zero(
+	const Params& p,
+	Make2DArray& h_app
+){
+	for(int n=0; n<h_app.Lx; n++){
+		for(int step=0; step<h_app.N_steps; step++){
+			if( h_app(n, step).x < p.delta ){
+					h_app(n, step).x = p.delta;
+				}
+			}
+		}
 }

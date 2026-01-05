@@ -117,4 +117,9 @@ double gaussian(
 	double	sigma
 );
 
+void avoid_zero(
+	const Params& p,
+	Make2DArray& h_app
+);
+
 #endif

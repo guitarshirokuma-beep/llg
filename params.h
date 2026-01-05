@@ -11,6 +11,7 @@ class Params{
 		double pulse_norm;
 		double time_pulse_center;
 		double local_pulse_center;
+		double delta;
 		const double dt = 0.01;
 		const double gamma = 1.0;
 		double J;
@@ -22,7 +23,8 @@ class Params{
 				, double pulse_norm_
 				, double time_pulse_center_
 				, double local_pulse_center_
-				, double J_)
+				, double J_
+				, double delta_)
 			: Lx(Lx_)
 			, N_steps(N_steps_)
 			, lam(lam_)
@@ -31,7 +33,8 @@ class Params{
 			, pulse_norm(pulse_norm_)
 			, time_pulse_center(time_pulse_center_)
 			, local_pulse_center(local_pulse_center_)
-			, J(J_) {};
+			, J(J_)
+			, delta(delta_) {};
 };
 
 #endif
