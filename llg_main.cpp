@@ -23,6 +23,8 @@ int main(){
 	initialize(p, S, h_app);
 	run_llg(p, S, h_app);
 	S = fft_2d(p, S, 'y');
-	output_data(p, S);
+	Make2DArray response(p.Lx, p.N_steps);
+	response = S / h_app;
+	output_data(p, S, 'y');
 	return 0;
 }

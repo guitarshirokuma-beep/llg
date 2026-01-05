@@ -13,6 +13,7 @@ class Data{
 		Data operator+(const Data& other) const;
 		Data& operator+=(const Data& other);
 		friend Data operator*(double c, const Data& a);
+		friend Data operator/(const Data& a, const Data& b);
 		void normalize();
 };
 
@@ -24,6 +25,10 @@ class Make2DArray{
 			: Lx(Lx_), N_steps(N_steps_), val(Lx_ * N_steps_) {}
 		Data& operator()(int x, int t);
 		const Data& operator()(int x, int t) const;
+		friend Make2DArray operator/(
+			const Make2DArray& a,
+			const Make2DArray& b
+		);
 };
 
 class Make1DArray{
@@ -83,7 +88,8 @@ void output_data(
 
 void output_data(
 	const Params&		p,
-	const Make2DArray&	S
+	const Make2DArray&	S,
+	char				axis
 );
 
 void output_params(const Params& p);

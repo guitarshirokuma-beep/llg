@@ -26,6 +26,10 @@ Data operator*(double c, const Data& a){
 	return {c * a.x, c * a.y, c* a.z};
 }
 
+Data operator/(const Data& a, const Data& b){
+	return { a.x / b.x, a.y / b.y, a.z / b.z };
+}
+
 Data& Data::operator+=(const Data& other){
 	x += other.x;
 	y += other.y;
@@ -51,6 +55,19 @@ Data& Make2DArray::operator()(int x, int t){
 
 const Data& Make2DArray::operator()(int x, int t) const{
 	return val[x * N_steps + t];
+}
+
+Make2DArray operator/(
+	const Make2DArray& a,
+	const Make2DArray& b
+){
+	Make2DArray result(a.Lx, a.N_steps);
+	for(int n=0; n<a.Lx; n++){
+		for(int step=0; step<a.N_steps; step++){
+			result(n, step) = a(n, step) / b(n, step);
+		}
+	}
+	return result;
 }
 
 Data& Make1DArray::operator()(int x){
@@ -222,14 +239,37 @@ void output_data(
 
 void output_data(
 	const Params&		p,
-	const Make2DArray&	S
+	const Make2DArray&	S,
+	char				axis
 ){
 	ofstream ofs("llg.dat");
-	ofs << "# n step S(n, step).y\n";
-	for(int n=0; n<p.Lx; n++){
-		for(int step=0; step<p.N_steps; step++){
-			ofs << n << " " << step << " " << S(n, step).y << "\n";
+	switch (axis){
+	case 'x':
+		ofs << "# n step S(n, step).x\n";
+		for(int n=0; n<p.Lx; n++){
+			for(int step=0; step<p.N_steps; step++){
+				ofs << n << " " << step << " " << S(n, step).x << "\n";
+			}
 		}
+		break;
+	case 'y':
+		ofs << "# n step S(n, step).y\n";
+		for(int n=0; n<p.Lx; n++){
+			for(int step=0; step<p.N_steps; step++){
+				ofs << n << " " << step << " " << S(n, step).y << "\n";
+			}
+		}
+		break;
+	case 'z':
+		ofs << "# n step S(n, step).z\n";
+		for(int n=0; n<p.Lx; n++){
+			for(int step=0; step<p.N_steps; step++){
+				ofs << n << " " << step << " " << S(n, step).z << "\n";
+			}
+		}
+		break;
+	default:
+		throw invalid_argument("axis must be x, y, or z");
 	}
 	ofs.close();
 }
@@ -278,7 +318,7 @@ Make1DArray& fft_1d_time(
 	in = (fftw_complex*) fftw_malloc(sizeof(fftw_complex) * p.N_steps);
 	out = (fftw_complex*) fftw_malloc(sizeof(fftw_complex) * p.N_steps);
 
-	fftw_plan plan = fftw_plan_dft_1d(p.N_steps, in, out, FFTW_FORWARD, FFTW_MEASURE);
+	fftw_plan plan = fftw_plan_dft_1d(p.N_steps, in, out, FFTW_FORWARD, FFTW_ESTIMATE);
 
 	switch (axis)
 	{
@@ -344,7 +384,7 @@ Make2DArray& fft_2d(
 	in = (fftw_complex*) fftw_malloc(sizeof(fftw_complex) * (p.Lx*p.N_steps));
 	out = (fftw_complex*) fftw_malloc(sizeof(fftw_complex) * (p.Lx*p.N_steps));
 
-	fftw_plan plan = fftw_plan_dft_2d(p.Lx, p.N_steps, in, out, FFTW_FORWARD, FFTW_MEASURE);
+	fftw_plan plan = fftw_plan_dft_2d(p.Lx, p.N_steps, in, out, FFTW_FORWARD, FFTW_ESTIMATE);
 	switch (axis){
 	case 'x':
 		for(int n=0; n<p.Lx; n++){
