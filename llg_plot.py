@@ -62,12 +62,15 @@ def output_heatmap(
     cbar = plt.colorbar(img)
     cbar.ax.tick_params(labelsize=15)
     plt.xlabel('k')
-    plt.ylabel('omega')
+    plt.ylabel(r'$\omega$')
     #ideal plot
-    k_array = np.arange(k_max)
+    k_array = np.linspace(0, k_max, Lx)
     ideal_array = h_app_norm + 2*J*( 1-np.cos(k_array) )
-    plt.plot(k_array, ideal_array, label="Ideal Line")
+    plt.plot(k_array, ideal_array, linestyle='--', c='ghostwhite', lw=1, label="Ideal Line")
+
+    plt.legend()
     plt.show()
     # quick diagnostics
     print("shape (k,omega):", S_k_omega.shape, "min:", S_k_omega.min(), "max:", S_k_omega.max())
+
 
