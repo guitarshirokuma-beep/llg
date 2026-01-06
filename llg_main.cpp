@@ -27,7 +27,7 @@ int main(){
 	Make2DArray response(p.Lx, p.N_steps);
 	h_app = fft_2d(p, h_app, 'x');
 	avoid_zero(p, h_app);
-	response = S / h_app;
-	output_data(p, S, 'y');
+	response = calc_response(p, S, h_app);
+	output_data(p, response, 'x');
 	return 0;
 }

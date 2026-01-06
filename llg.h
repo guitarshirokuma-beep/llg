@@ -122,4 +122,10 @@ void avoid_zero(
 	Make2DArray& h_app
 );
 
+Make2DArray calc_response(
+	const Params& p,
+	const Make2DArray& S,
+	const Make2DArray& h_app
+);
+
 #endif
