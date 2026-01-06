@@ -23,12 +23,18 @@ def output_normal_graph(
     plt.show()
 
 def output_heatmap(
+    title_text,
     Lx,
     N_steps,
     S,
     dt,
     h_app_norm,
     J,
+    vmin_self,
+    xlabel,
+    ylabel,
+    fontsize,
+    clabel,
 ):
     k_size = int(Lx)
     omega_size = int(N_steps)
@@ -38,8 +44,9 @@ def output_heatmap(
     S_k_omega = S_omega_k.T
 
     plt.figure()
+    plt.grid(color='ghostwhite', linewidth=0.5)
     omega_max = 2 * np.pi / float(dt)
-    k_max = 2 * np.pi
+    k_max = 2
 
     data_max = S_k_omega.max()
     data_min = S_k_omega.min()
@@ -47,7 +54,7 @@ def output_heatmap(
     if data_min <= 0.0:
         print("Data contains non-positive values.")
     norm = LogNorm(
-        vmin=float(data_min),
+        vmin=vmin_self,
         vmax=float(data_max)
         )
     img = plt.imshow(
@@ -60,14 +67,18 @@ def output_heatmap(
         extent=[0, k_max, 0, omega_max]
     )
     cbar = plt.colorbar(img)
-    cbar.ax.tick_params(labelsize=15)
-    plt.xlabel('k')
-    plt.ylabel(r'$\omega$')
+    cbar.ax.tick_params(labelsize=fontsize)
+    cbar.set_label(clabel, fontsize=fontsize)
+    plt.xlabel(xlabel, fontsize=fontsize)
+    plt.ylabel(ylabel, fontsize=fontsize)
+    ymax_self = omega_max
+    plt.ylim(0, ymax_self)
     #ideal plot
     k_array = np.linspace(0, k_max, Lx)
-    ideal_array = h_app_norm + 2*J*( 1-np.cos(k_array) )
-    plt.plot(k_array, ideal_array, linestyle='--', c='ghostwhite', lw=1, label="Ideal Line")
+    ideal_array = h_app_norm + 2*J*( 1-np.cos(k_array*np.pi) )
+    plt.plot(k_array, ideal_array, linestyle='--', c='ghostwhite', lw=1, label="hz + 2J(1-cos(k))")
 
+    plt.title(title_text, fontsize=fontsize)
     plt.legend()
     plt.show()
     # quick diagnostics
