@@ -6,7 +6,7 @@
 #include"llg.hpp"
 using namespace std;
 
-Data Data::cross(const Data& other) const{
+Vec3 Vec3::cross(const Vec3& other) const{
 	return {
 		y*other.z - z*other.y,
 		z*other.x - x*other.z,
@@ -14,7 +14,7 @@ Data Data::cross(const Data& other) const{
 	};
 }
 
-Data Data::operator+(const Data& other) const{
+Vec3 Vec3::operator+(const Vec3& other) const{
 	return {
 		x + other.x,
 		y + other.y,
@@ -22,22 +22,22 @@ Data Data::operator+(const Data& other) const{
 	};
 }
 
-Data operator*(double c, const Data& a){
+Vec3 operator*(double c, const Vec3& a){
 	return {c * a.x, c * a.y, c* a.z};
 }
 
-Data operator/(const Data& a, const Data& b){
+Vec3 operator/(const Vec3& a, const Vec3& b){
 	return { a.x / b.x, a.y / b.y, a.z / b.z };
 }
 
-Data& Data::operator+=(const Data& other){
+Vec3& Vec3::operator+=(const Vec3& other){
 	x += other.x;
 	y += other.y;
 	z += other.z;
 	return *this;
 }
 
-void Data::normalize(){
+void Vec3::normalize(){
 	double n = sqrt(x*x + y*y + z*z);
 	if(n > 0.0){
 		x /= n;
@@ -49,11 +49,11 @@ void Data::normalize(){
 	}
 }
 
-Data& Make2DArray::operator()(int x, int t){
+Vec3& Make2DArray::operator()(int x, int t){
 			return val[x * N_steps + t];
 		}
 
-const Data& Make2DArray::operator()(int x, int t) const{
+const Vec3& Make2DArray::operator()(int x, int t) const{
 	return val[x * N_steps + t];
 }
 
@@ -70,11 +70,11 @@ Make2DArray operator/(
 	return result;
 }
 
-Data& Make1DArray::operator()(int x){
+Vec3& Make1DArray::operator()(int x){
 			return val[x];
 		}
 
-const Data& Make1DArray::operator()(int x) const{
+const Vec3& Make1DArray::operator()(int x) const{
 	return val[x];
 }
 
@@ -183,9 +183,9 @@ Make1DArray calc_dSdt(
 ){
 	Make1DArray dS_over_dt(p.Lx);
 	for(int n=0; n<p.Lx; n++){
-		Data h = h_app(n, step) + h_exc(n);
-		Data Sxh = S_step(n).cross(h);
-		Data SxSxh = S_step(n).cross(Sxh);
+		Vec3 h = h_app(n, step) + h_exc(n);
+		Vec3 Sxh = S_step(n).cross(h);
+		Vec3 SxSxh = S_step(n).cross(Sxh);
 
 		double c = (-p.gamma)/(1.0 + p.lam*p.lam);
 

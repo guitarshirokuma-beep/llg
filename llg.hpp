@@ -6,25 +6,25 @@
 #include"params.h"
 using namespace std;
 
-class Data{
+class Vec3{
 	public:
 		double x, y, z;
-		Data cross(const Data& other) const;
-		Data operator+(const Data& other) const;
-		Data& operator+=(const Data& other);
-		friend Data operator*(double c, const Data& a);
-		friend Data operator/(const Data& a, const Data& b);
+		Vec3 cross(const Vec3& other) const;
+		Vec3 operator+(const Vec3& other) const;
+		Vec3& operator+=(const Vec3& other);
+		friend Vec3 operator*(double c, const Vec3& a);
+		friend Vec3 operator/(const Vec3& a, const Vec3& b);
 		void normalize();
 };
 
 class Make2DArray{
 	public:
 		int Lx, N_steps;
-		vector<Data> val;
+		vector<Vec3> val;
 		Make2DArray(int Lx_, int N_steps_)
 			: Lx(Lx_), N_steps(N_steps_), val(Lx_ * N_steps_) {}
-		Data& operator()(int x, int t);
-		const Data& operator()(int x, int t) const;
+		Vec3& operator()(int x, int t);
+		const Vec3& operator()(int x, int t) const;
 		friend Make2DArray operator/(
 			const Make2DArray& a,
 			const Make2DArray& b
@@ -34,11 +34,11 @@ class Make2DArray{
 class Make1DArray{
 	public:
 		int Lx;
-		vector<Data> val;
+		vector<Vec3> val;
 		Make1DArray(int Lx_)
 			: Lx(Lx_), val(Lx_) {}
-		Data& operator()(int x);
-		const Data& operator()(int x) const;
+		Vec3& operator()(int x);
+		const Vec3& operator()(int x) const;
 		Make1DArray operator+(const Make1DArray& other) const;
 		Make1DArray& operator+=(const Make1DArray& other);
 		friend Make1DArray operator*(double c, const Make1DArray& a);
