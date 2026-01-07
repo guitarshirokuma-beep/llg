@@ -17,20 +17,6 @@ class Vec3{
 		void normalize();
 };
 
-class Make2DArray{
-	public:
-		int Lx, N_steps;
-		vector<Vec3> val;
-		Make2DArray(int Lx_, int N_steps_)
-			: Lx(Lx_), N_steps(N_steps_), val(Lx_ * N_steps_) {}
-		Vec3& operator()(int x, int t);
-		const Vec3& operator()(int x, int t) const;
-		friend Make2DArray operator/(
-			const Make2DArray& a,
-			const Make2DArray& b
-		);
-};
-
 class Make1DArray{
 	public:
 		int Lx;
@@ -45,6 +31,22 @@ class Make1DArray{
 		friend Make1DArray operator/(const Make1DArray& a, const Make1DArray& b);
 		void normalize();
 };
+
+class Make2DArray{
+	public:
+		int Lx, N_steps;
+		vector<Vec3> val;
+		Make2DArray(int Lx_, int N_steps_)
+			: Lx(Lx_), N_steps(N_steps_), val(Lx_ * N_steps_) {}
+		Vec3& operator()(int x, int t);
+		const Vec3& operator()(int x, int t) const;
+		friend Make2DArray operator/(
+			const Make2DArray& a,
+			const Make2DArray& b
+		);
+};
+
+
 
 Make1DArray extract_const_step(
 	const Params&		p,
