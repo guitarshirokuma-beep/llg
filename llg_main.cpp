@@ -6,15 +6,15 @@ using namespace std;
 
 int main(){
 	const int Lx = 2048;
-	const int N_steps = 2048;
+	const int N_steps = 16384;
 	const double lam = 0.03;
-	const double h_app_norm = 10;
+	const double h_app_norm = 10.0;
 	const double sigma = 0.5;
 	const double pulse_norm = 0.01;
 	const double time_pulse_center = N_steps / 2.0;
 	const double local_pulse_center = Lx / 2.0;
 	const double J = 10.0;
-	const double delta = 1e-15;
+	const double delta = 1e-13;//for avoid_zero()
 
 	Params p(Lx, N_steps, lam, h_app_norm, sigma, pulse_norm, time_pulse_center, local_pulse_center, J, delta);
 

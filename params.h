@@ -12,7 +12,7 @@ class Params{
 		double time_pulse_center;
 		double local_pulse_center;
 		double delta;
-		const double dt = 0.01;
+		const double dt = 0.001;
 		const double gamma = 1.0;
 		double J;
 		Params(int Lx_

@@ -71,8 +71,8 @@ def output_heatmap(
     cbar.set_label(clabel, fontsize=fontsize)
     plt.xlabel(xlabel, fontsize=fontsize)
     plt.ylabel(ylabel, fontsize=fontsize)
-    ymax_self = omega_max
-    plt.ylim(0, ymax_self)
+    ymax_self = omega_max/10
+    plt.ylim(h_app_norm-10, h_app_norm+60)
     #ideal plot
     k_array = np.linspace(0, k_max, Lx)
     ideal_array = h_app_norm + 2*J*( 1-np.cos(k_array*np.pi) )

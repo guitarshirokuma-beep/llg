@@ -9,7 +9,7 @@ importlib.reload(llg_plot)
 params_data = np.loadtxt("llg_params.dat")
 
 Lx = int(params_data[0])
-N_steps = params_data[1]
+N_steps = int(params_data[1])
 lam = params_data[2]
 h_app_norm = params_data[3]
 pulse_norm = params_data[4]
@@ -30,7 +30,7 @@ ylabel = r'$\omega$'
 clabel = r'$|\chi| = |m_y\;/\;h_{app\;x}|$'
 legend_text = r'$m_x( n = 0, t )$'
 # Set the minimum value for the color scale
-vmin_self = 1e-6
+vmin_self = 0.09
 
 llg_plot.output_heatmap(
     title_text,
