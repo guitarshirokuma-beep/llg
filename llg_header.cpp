@@ -102,6 +102,14 @@ Make1DArray operator*(double c, const Make1DArray& a){
 	return result;
 }
 
+Make1DArray operator/(const Make1DArray& a, const Make1DArray& b){
+	Make1DArray result(a.Lx);
+	for(int n=0; n<a.Lx; n++){
+		result.val[n] = a.val[n] / b.val[n];
+	}
+	return result;
+}
+
 Make1DArray extract_const_step(
 	const Params&		p,
 	const Make2DArray&	S_2d,

@@ -42,6 +42,7 @@ class Make1DArray{
 		Make1DArray operator+(const Make1DArray& other) const;
 		Make1DArray& operator+=(const Make1DArray& other);
 		friend Make1DArray operator*(double c, const Make1DArray& a);
+		friend Make1DArray operator/(const Make1DArray& a, const Make1DArray& b);
 		void normalize();
 };
 
