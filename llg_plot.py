@@ -11,12 +11,15 @@ def output_normal_graph(
     ylabel,
     y_data,
     legend_text,
+    N_steps,
 ):
     fig, ax = plt.subplots()
     ax.grid()
     ax.set_title(label=title_text,fontsize=fontsize)
     ax.tick_params(labelsize=fontsize)
     ax.set_xlabel(xlabel, fontsize=fontsize)
+    self_set_max = 100
+    ax.set_xlim([0, self_set_max])
     ax.set_ylabel(ylabel, fontsize=fontsize)
     ax.plot(x_data, y_data, label=legend_text)
     ax.legend(fontsize=fontsize)
@@ -72,11 +75,9 @@ def output_heatmap(
     plt.xlabel(xlabel, fontsize=fontsize)
     plt.ylabel(ylabel, fontsize=fontsize)
     ymax_self = omega_max/10
-    plt.ylim(h_app_norm-10, h_app_norm+60)
-    #ideal plot
+    plt.ylim(0, 80)
+    plt.xlim(0, 0.01)
     k_array = np.linspace(0, k_max, Lx)
-    ideal_array = h_app_norm + 2*J*( 1-np.cos(k_array*np.pi) )
-    plt.plot(k_array, ideal_array, linestyle='--', c='ghostwhite', lw=1, label="hz + 2J(1-cos(k))")
 
     plt.title(title_text, fontsize=fontsize)
     plt.legend()

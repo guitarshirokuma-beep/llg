@@ -6,11 +6,11 @@ using namespace std;
 
 int main(){
 	const int Lx = 2048;
-	const int N_steps = 2048;
+	const int N_steps = 8192;
 	const double lam = 0.03;
 	const double h_app_norm = 10.0;
 	const double sigma = 0.5;
-	const double sin_norm = 0.01;
+	const double sin_norm = 10;
 	const double time_pulse_center = N_steps / 2.0;
 	const double local_pulse_center = Lx / 2.0;
 	const double J = 10.0;
@@ -24,11 +24,11 @@ int main(){
 	Make2DArray h_app(p.Lx, p.N_steps);
 	initialize(p, S, h_app);
 	run_llg(p, S, h_app);
-	S = fft_2d(p, S, 'y');
-	Make2DArray response(p.Lx, p.N_steps);
-	h_app = fft_2d(p, h_app, 'x');
+	fft_2d(p, S, 'y');
+	fft_2d(p, h_app, 'x');
 	avoid_zero(p, h_app);
-	response = calc_response(p, S, h_app);
+	Make2DArray response = calc_response(p, S, h_app);
+	avoid_zero(p, response);
 	output_data(p, response, 'x');
 	return 0;
 }

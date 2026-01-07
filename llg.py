@@ -23,21 +23,21 @@ omega = params_data[10]
 title_text = rf'$Lx = {Lx}, Nsteps = {N_steps}, h_z = {h_app_norm}, h_x\;\sin = {sin_norm},$'+"\n"+rf'$\sigma = {sigma}, dt = {dt}, J = {J}, \lambda = {lam}, \omega = {omega}$'
 
 llg_data = np.loadtxt("llg.dat")
-S_k_omega = llg_data[:, 2]
+response = llg_data[:, 2]
 
 fontsize=12
-xlabel = r'$k/\pi$'
+xlabel = r'$k$'
 ylabel = r'$\omega$'
 clabel = r'$|\chi| = |m_y\;/\;h_{app\;x}|$'
 legend_text = r'$m_x( n = 0, t )$'
 # Set the minimum value for the color scale
-vmin_self = 0.09
+vmin_self = 1e-3
 
 llg_plot.output_heatmap(
     title_text,
     Lx,
     N_steps,
-    S_k_omega,
+    response,
     dt,
     h_app_norm,
     J,
@@ -45,5 +45,5 @@ llg_plot.output_heatmap(
     xlabel,
     ylabel,
     fontsize,
-    clabel,
+    clabel
 )
