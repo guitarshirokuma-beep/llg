@@ -18,6 +18,7 @@ void output_params(const Params& p){
 	cout << "J = " << p.J << "\n";
 	cout << "sigma = " << p.sigma << "\n";
 	cout << "delta = " << p.delta << "\n";
+	cout << "omega = " << p.omega << "\n";
 
 	ofstream ofs("llg_params.dat");
 	ofs <<  p.Lx << "\n";
@@ -30,6 +31,7 @@ void output_params(const Params& p){
 	ofs << p.J << "\n";
 	ofs << p.sigma << "\n";
 	ofs << p.delta << "\n";
+	ofs << p.omega << "\n";
 }
 
 	

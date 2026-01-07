@@ -18,8 +18,9 @@ gamma = params_data[6]
 J = params_data[7]
 sigma = params_data[8]
 delta = params_data[9]
+omega = params_data[10]
 
-title_text = rf'$Lx = {Lx}, Nsteps = {N_steps}, h_z = {h_app_norm}, h_x\;\sin = {sin_norm},$'+"\n"+rf'$\sigma = {sigma}, dt = {dt}, J = {J}, \lambda = {lam}$'
+title_text = rf'$Lx = {Lx}, Nsteps = {N_steps}, h_z = {h_app_norm}, h_x\;\sin = {sin_norm},$'+"\n"+rf'$\sigma = {sigma}, dt = {dt}, J = {J}, \lambda = {lam}, \omega = {omega}$'
 
 llg_data = np.loadtxt("llg.dat")
 S_k_omega = llg_data[:, 2]

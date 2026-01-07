@@ -15,8 +15,9 @@ int main(){
 	const double local_pulse_center = Lx / 2.0;
 	const double J = 10.0;
 	const double delta = 1e-13;//for avoid_zero()
+	const double omega = 20.0;
 
-	Params p(Lx, N_steps, lam, h_app_norm, sigma, sin_norm, time_pulse_center, local_pulse_center, J, delta);
+	Params p(Lx, N_steps, lam, h_app_norm, sigma, sin_norm, time_pulse_center, local_pulse_center, J, delta, omega);
 
 	output_params(p);
 	Make2DArray S(p.Lx, p.N_steps);
