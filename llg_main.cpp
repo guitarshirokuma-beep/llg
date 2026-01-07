@@ -1,7 +1,7 @@
 #include<iostream>
 #include<fstream>
 #include<vector>
-#include"llg.h"
+#include"llg.hpp"
 using namespace std;
 
 int main(){

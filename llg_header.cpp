@@ -3,7 +3,7 @@
 #include<vector>
 #include<cmath>
 #include<fftw3.h>
-#include"llg.h"
+#include"llg.hpp"
 using namespace std;
 
 Data Data::cross(const Data& other) const{
@@ -103,7 +103,7 @@ Make1DArray operator*(double c, const Make1DArray& a){
 }
 
 Make1DArray operator/(const Make1DArray& a, const Make1DArray& b){
-	Make1DArray result(a.Lx);
+	Make1DArray result(a.Lx);//Should be Lx N_steps?
 	for(int n=0; n<a.Lx; n++){
 		result.val[n] = a.val[n] / b.val[n];
 	}
@@ -480,6 +480,18 @@ void avoid_zero(
 				}
 			}
 		}
+}
+
+Make1DArray calc_response(
+	const Params& p,
+	const Make1DArray& S,
+	const Make1DArray& h_app
+){
+	Make1DArray response(p.N_steps);
+	for(int step=0; step<p.N_steps; step++){
+		response(step) = S(step) / h_app(step);
+	}
+	return response;
 }
 
 Make2DArray calc_response(
