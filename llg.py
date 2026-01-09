@@ -20,9 +20,11 @@ sigma = params_data[8]
 delta = params_data[9]
 omega = params_data[10]
 
-title_text = rf'$Lx = {Lx}, Nsteps = {N_steps}, h_z = {h_app_norm}, h_x\;\sin = {sin_norm},$'+"\n"+rf'$\sigma = {sigma}, dt = {dt}, J = {J}, \lambda = {lam}, \omega = {omega}$'
+title_text = rf'$Lx = {Lx}, Nsteps = {N_steps}, h_z = {h_app_norm}, h_x\;\sin = {sin_norm},$'+"\n"+rf'$dt = {dt}, J = {J}, \lambda = {lam}, \omega = {omega}$'
 
 llg_data = np.loadtxt("llg.dat")
+x_data = llg_data[:, 0]
+y_data = llg_data[:, 1]
 response = llg_data[:, 2]
 
 fontsize=12
@@ -45,5 +47,5 @@ llg_plot.output_heatmap(
     xlabel,
     ylabel,
     fontsize,
-    clabel
+    clabel,
 )

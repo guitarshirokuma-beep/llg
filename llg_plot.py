@@ -12,7 +12,9 @@ def output_normal_graph(
     y_data,
     legend_text,
     N_steps,
+    dt,
 ):
+    x_data *= 2.0 * np.pi / (N_steps * dt)  # Convert to omega
     fig, ax = plt.subplots()
     ax.grid()
     ax.set_title(label=title_text,fontsize=fontsize)
@@ -75,8 +77,6 @@ def output_heatmap(
     plt.xlabel(xlabel, fontsize=fontsize)
     plt.ylabel(ylabel, fontsize=fontsize)
     ymax_self = omega_max/10
-    plt.ylim(0, 80)
-    plt.xlim(0, 0.01)
     k_array = np.linspace(0, k_max, Lx)
 
     plt.title(title_text, fontsize=fontsize)
