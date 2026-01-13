@@ -13,9 +13,9 @@ double gaussian(int n, double center, double sigma){
 void initialize(Params& p, Make2DArray& S, Make2DArray& h_app){
     for(int n=0; n<p.Lx; n++){
         for(int step=0; step<p.N_steps; step++){
-			 h_app(n, step).x = p.sin_norm * sin(p.omega * step * p.dt);
+			 h_app(n, step).x = p.sin_norm * sin(p.omega * step * p.dt) + p.h_app_norm;
              h_app(n, step).y = 0.0;
-             h_app(n, step).z = p.h_app_norm;
+             h_app(n, step).z = 0.0;
          }
      }
  

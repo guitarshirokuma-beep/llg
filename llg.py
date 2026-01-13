@@ -20,7 +20,7 @@ sigma = params_data[8]
 delta = params_data[9]
 omega = params_data[10]
 
-title_text = rf'$Lx = {Lx}, Nsteps = {N_steps}, h_z = {h_app_norm}, h_x\;\sin = {sin_norm},$'+"\n"+rf'$dt = {dt}, J = {J}, \lambda = {lam}, \omega = {omega}$'
+title_text = rf'$Lx = {Lx}, Nsteps = {N_steps}, h_x = {h_app_norm}, h_x\;\sin = {sin_norm},$'+"\n"+rf'$dt = {dt}, J = {J}, \lambda = {lam}, \omega = {omega}$'
 
 llg_data = np.loadtxt("llg.dat")
 x_data = llg_data[:, 0]
@@ -28,10 +28,10 @@ y_data = llg_data[:, 1]
 response = llg_data[:, 2]
 
 fontsize=12
-xlabel = r'$k$'
+xlabel = r'$k/\pi$'
 ylabel = r'$\omega$'
 clabel = r'$|\chi| = |m_y\;/\;h_{app\;x}|$'
-legend_text = r'$m_x( n = 0, t )$'
+legend_text = r'$|\chi|$'
 # Set the minimum value for the color scale
 vmin_self = 1e-3
 

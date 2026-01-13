@@ -20,7 +20,7 @@ def output_normal_graph(
     ax.set_title(label=title_text,fontsize=fontsize)
     ax.tick_params(labelsize=fontsize)
     ax.set_xlabel(xlabel, fontsize=fontsize)
-    self_set_max = 100
+    self_set_max = (2.0/15.0) * 2.0 * np.pi / dt
     ax.set_xlim([0, self_set_max])
     ax.set_ylabel(ylabel, fontsize=fontsize)
     ax.plot(x_data, y_data, label=legend_text)
