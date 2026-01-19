@@ -30,7 +30,7 @@ ylabel = r'$\omega$'
 clabel = r'$|\chi| = |m_y\;/\;h_{app\;x}|$'
 legend_text = r'$m_x( n = 0, t )$'
 # Set the minimum value for the color scale
-vmin_self = 0.005
+vmin_self = 0.09
 
 llg_plot.output_heatmap(
     title_text,

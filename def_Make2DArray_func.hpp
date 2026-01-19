@@ -44,15 +44,18 @@ Make2DArray& fft_2d(
 	return S;
 }
 
+template<typename T1, typename T2>
 Make2DArray calc_response(
-	const Params& p,
-	const Make2DArray& S,
-	const Make2DArray& h_app
+	const Params&       p,
+	const Make2DArray&  S,
+    T1                  S_axis,
+	const Make2DArray&  h_app,
+    T2                  h_axis
 ){
 	Make2DArray response(p.Lx, p.N_steps);
 	for(int n=0; n<p.Lx; n++){
 		for(int step=0; step<p.N_steps; step++){
-			response(n, step).x = S(n, step).y / h_app(n, step).x;
+            response(n, step).x = S_axis( S(n, step) ) / h_axis( h_app(n, step) );
 		}
 	}
 	return response;

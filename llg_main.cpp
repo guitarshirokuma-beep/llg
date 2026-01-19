@@ -11,7 +11,7 @@ int main(){
 	const double lam = 0.03;
 	const double h_app_norm = 10.0;
 	const double sigma = 0.5;
-	const double pulse_norm = 10.0;
+	const double pulse_norm = 0.01;
 	const double time_pulse_center = N_steps / 2.0;
 	const double local_pulse_center = Lx / 2.0;
 	const double J = 10.0;
@@ -28,7 +28,7 @@ int main(){
 	Make2DArray response(p.Lx, p.N_steps);
 	h_app = fft_2d(p, h_app, [](const Vec3& v){return v.x;}, [](Vec3& v, double val){v.x = val;});
 	avoid_zero(p, h_app);
-	response = calc_response(p, S, h_app);
+	response = calc_response(p, S, [](const Vec3& v){ return v.y;}, h_app, [](const Vec3& v){return v.x;});
 	output_data(p, response, 'x');
 	return 0;
 }
