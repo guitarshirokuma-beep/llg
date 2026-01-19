@@ -16,7 +16,8 @@ void output_params(const Params& p){
 	cout << "dt = " << p.dt << "\n";
 	cout << "gamma = " << p.gamma << "\n";
 	cout << "J = " << p.J << "\n";
-	cout << "sigma = " << p.sigma << "\n";
+	cout << "sigma_x = " << p.sigma_x << "\n";
+	cout << "sigma_step = " << p.sigma_step << "\n";
 	cout << "delta = " << p.delta << "\n";
 
 	ofstream ofs("llg_params.dat");
@@ -28,8 +29,9 @@ void output_params(const Params& p){
 	ofs << p.dt << "\n";
 	ofs << p.gamma << "\n";
 	ofs << p.J << "\n";
-	ofs << p.sigma << "\n";
+	ofs << p.sigma_x << "\n";
 	ofs << p.delta << "\n";
+	ofs << p.sigma_step << "\n";
 }
 
 	

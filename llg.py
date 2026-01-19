@@ -16,10 +16,11 @@ pulse_norm = params_data[4]
 dt = params_data[5]
 gamma = params_data[6]
 J = params_data[7]
-sigma = params_data[8]
+sigma_x = params_data[8]
 delta = params_data[9]
+sigma_step = params_data[10]
 
-title_text = rf'$Lx = {Lx}, Nsteps = {N_steps}, h_z = {h_app_norm}, h_x\;pulse = {pulse_norm},$'+"\n"+rf'$\sigma = {sigma}, dt = {dt}, J = {J}, \lambda = {lam}$'
+title_text = rf'$Lx = {Lx}, N_{{steps}} = {N_steps}, h_z = {h_app_norm}, h_x\;pulse = {pulse_norm},$'+"\n"+rf'$\sigma_x = {sigma_x}, \sigma_{{step}} = {sigma_step}, dt = {dt}, J = {J}, \lambda = {lam}$'
 
 llg_data = np.loadtxt("llg.dat")
 S_k_omega = llg_data[:, 2]
