@@ -1,7 +1,7 @@
 #ifndef PARAMS_H
 #define PARAMS_H
 
-class Params
+struct Params
 {
 public:
 	int Lx;
