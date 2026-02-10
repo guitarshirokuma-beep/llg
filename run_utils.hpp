@@ -16,6 +16,31 @@ std::string make_run_dir()
     return ss.str();
 }
 
+#include <cstdio>
+#include <memory>
+#include <array>
+
+inline std::string get_git_hash()
+{
+    std::array<char, 128> buffer;
+    std::string result;
+
+    FILE *pipe = popen("git rev-parse --short HEAD", "r");
+    if (!pipe)
+        return "unknown";
+
+    while (fgets(buffer.data(), buffer.size(), pipe) != nullptr)
+        result += buffer.data();
+
+    pclose(pipe);
+
+    // 改行除去
+    if (!result.empty() && result.back() == '\n')
+        result.pop_back();
+
+    return result;
+}
+
 #include <fstream>
 
 void save_params(const Params &p, const std::string &dir)
@@ -35,4 +60,7 @@ void save_params(const Params &p, const std::string &dir)
     f << "delta " << p.delta << "\n";
     f << "dt " << p.dt << "\n";
     f << "gamma " << p.gamma << "\n";
+    f << "git_hash " << get_git_hash() << "\n";
 }
+
+
