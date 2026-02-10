@@ -22,10 +22,14 @@ int main()
 
 	Params p(Lx, N_steps, lam, h_app_norm, sigma_x, sigma_step, pulse_norm, time_pulse_center, local_pulse_center, J, delta);
 
+	// mkdir for log
 	auto run_dir = make_run_dir();
-	cout << run_dir << "\n";
 	save_params(p, run_dir);
 	output_params(p);
+
+	// send PATH to python
+	std::string cmd = "/home/seukuu/cpp_source_code/venv/bin/python llg.py " + run_dir;
+	system(cmd.c_str());
 
 	Make2DArray S(p.Lx, p.N_steps);
 	Make2DArray h_app(p.Lx, p.N_steps);

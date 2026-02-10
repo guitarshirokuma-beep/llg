@@ -5,6 +5,9 @@ import numpy as np
 import llg_plot
 import importlib
 importlib.reload(llg_plot)
+import sys
+
+run_dir = sys.argv[1]
 
 params_data = np.loadtxt("llg_params.dat")
 
@@ -46,4 +49,5 @@ llg_plot.output_heatmap(
     ylabel,
     fontsize,
     clabel,
+    run_dir,
 )

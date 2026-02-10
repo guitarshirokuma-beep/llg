@@ -35,6 +35,7 @@ def output_heatmap(
     ylabel,
     fontsize,
     clabel,
+    run_dir,
 ):
     k_size = int(Lx)
     omega_size = int(N_steps)
@@ -80,6 +81,8 @@ def output_heatmap(
 
     plt.title(title_text, fontsize=fontsize)
     plt.legend()
+    plt.savefig(f"{run_dir}/dipression.pdf")
+    plt.savefig(f"{run_dir}/dipression.png", dpi=300)
     plt.show()
     # quick diagnostics
     print("shape (k,omega):", S_k_omega.shape, "min:", S_k_omega.min(), "max:", S_k_omega.max())
