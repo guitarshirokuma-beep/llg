@@ -11,3 +11,5 @@ venv/
 llg_main
 
 *.dat
+
+runs/

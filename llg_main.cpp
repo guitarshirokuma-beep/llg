@@ -3,6 +3,7 @@
 #include <vector>
 #include "llg.hpp"
 #include "def_Make2DArray_func.hpp"
+#include "run_utils.hpp"
 using namespace std;
 
 int main()
@@ -21,7 +22,11 @@ int main()
 
 	Params p(Lx, N_steps, lam, h_app_norm, sigma_x, sigma_step, pulse_norm, time_pulse_center, local_pulse_center, J, delta);
 
+	auto run_dir = make_run_dir();
+	cout << run_dir << "\n";
+	save_params(p, run_dir);
 	output_params(p);
+
 	Make2DArray S(p.Lx, p.N_steps);
 	Make2DArray h_app(p.Lx, p.N_steps);
 	initialize(p, S, h_app);
