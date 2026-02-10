@@ -8,7 +8,7 @@ using namespace std;
 int main()
 {
 	const int Lx = 2048;
-	const int N_steps = 16384;
+	const int N_steps = 2048;
 	const double lam = 0.03;
 	const double h_app_norm = 10.0;
 	const double sigma_x = 0.5;
