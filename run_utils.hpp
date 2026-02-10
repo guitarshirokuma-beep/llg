@@ -50,7 +50,7 @@ void save_params(const Params &p, const std::string &dir)
     f << "Lx " << p.Lx << "\n";
     f << "N_steps " << p.N_steps << "\n";
     f << "lam " << p.lam << "\n";
-    f << "h_app_norm " << p.h_app_norm << "\n";
+    f << "h_app_static " << p.h_app_static << "\n";
     f << "sigma_x " << p.sigma_x << "\n";
     f << "sigma_step " << p.sigma_step << "\n";
     f << "pulse_norm " << p.pulse_norm << "\n";
@@ -62,5 +62,3 @@ void save_params(const Params &p, const std::string &dir)
     f << "gamma " << p.gamma << "\n";
     f << "git_hash " << get_git_hash() << "\n";
 }
-
-

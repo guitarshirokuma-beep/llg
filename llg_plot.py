@@ -28,7 +28,7 @@ def output_heatmap(
     N_steps,
     S,
     dt,
-    h_app_norm,
+    h_app_static,
     J,
     vmin_self,
     xlabel,
