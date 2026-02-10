@@ -22,19 +22,34 @@ J = params_data[7]
 sigma_x = params_data[8]
 delta = params_data[9]
 sigma_step = params_data[10]
+sin_norm = params_data[11]
+omega = params_data[12]
 
-title_text = rf'$Lx = {Lx}, N_{{steps}} = {N_steps}, h_z = {h_app_static}, h_x\;pulse = {pulse_norm},$'+"\n"+rf'$\sigma_x = {sigma_x}, \sigma_{{step}} = {sigma_step}, dt = {dt}, J = {J}, \lambda = {lam}$'
+title_text = rf'$Lx = {Lx}, N_{{steps}} = {N_steps}, h_z = {h_app_static}, h_x\;pulse = {pulse_norm},$'+"\n"+rf'$\sigma_x = {sigma_x}, \sigma_{{step}} = {sigma_step}, dt = {dt}, J = {J}, \lambda = {lam}, h_{{sin}} = {sin_norm}, \omega = {omega}$'
 
 llg_data = np.loadtxt(f"{run_dir}/llg.dat")
-S_k_omega = llg_data[:, 2]
+x_data = llg_data[:, 0]*(2.0*np.pi) / (dt*N_steps)
+y_data = llg_data[:, 1]
+# S_k_omega = llg_data[:, 2]
 
 fontsize=12
-xlabel = r'$k/\pi$'
-ylabel = r'$\omega$'
+xlabel = r'$\omega$'
+ylabel = r'$|m_y(n=0, \omega)$'
 clabel = r'$|m_y(k, \omega)|$'
 legend_text = r'$m_x( n = 0, t )$'
 # Set the minimum value for the color scale
 vmin_self = 0.09
+
+llg_plot.output_normal_graph(
+    fontsize,
+    title_text,
+    xlabel,
+    x_data,
+    ylabel,
+    y_data,
+    legend_text,
+    run_dir,
+)
 
 llg_plot.output_heatmap(
     title_text,

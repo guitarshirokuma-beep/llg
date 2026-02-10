@@ -11,15 +11,19 @@ def output_normal_graph(
     ylabel,
     y_data,
     legend_text,
+    run_dir,
 ):
     fig, ax = plt.subplots()
     ax.grid()
     ax.set_title(label=title_text,fontsize=fontsize)
     ax.tick_params(labelsize=fontsize)
     ax.set_xlabel(xlabel, fontsize=fontsize)
+    ax.set_xlim(0, 100)
     ax.set_ylabel(ylabel, fontsize=fontsize)
     ax.plot(x_data, y_data, label=legend_text)
     ax.legend(fontsize=fontsize)
+    plt.savefig(f"{run_dir}/normal_graph.png", dpi=300)
+    plt.savefig(f"{run_dir}/normal_graph.pdf")
     plt.show()
 
 def output_heatmap(
