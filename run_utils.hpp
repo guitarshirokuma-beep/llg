@@ -56,6 +56,8 @@ void save_params(const Params &p, const std::string &dir)
     f << "pulse_norm " << p.pulse_norm << "\n";
     f << "time_pulse_center " << p.time_pulse_center << "\n";
     f << "local_pulse_center " << p.local_pulse_center << "\n";
+    f << "sin_norm " << p.sin_norm << "\n";
+    f << "omega " << p.omega << "\n";
     f << "J " << p.J << "\n";
     f << "delta " << p.delta << "\n";
     f << "dt " << p.dt << "\n";

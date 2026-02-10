@@ -14,6 +14,8 @@ void output_params(const Params &p)
 	cout << "lam = " << p.lam << "\n";
 	cout << "h_app_static = " << p.h_app_static << "\n";
 	cout << "pulse_norm = " << p.pulse_norm << "\n";
+	cout << "sin_norm = " << p.sin_norm << "\n";
+	cout << "omega = " << p.omega << "\n";
 	cout << "dt = " << p.dt << "\n";
 	cout << "gamma = " << p.gamma << "\n";
 	cout << "J = " << p.J << "\n";
@@ -33,4 +35,6 @@ void output_params(const Params &p)
 	ofs << p.sigma_x << "\n";
 	ofs << p.delta << "\n";
 	ofs << p.sigma_step << "\n";
+	ofs << p.sin_norm << "\n";
+	ofs << p.omega << "\n";
 }

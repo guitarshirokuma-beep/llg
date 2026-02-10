@@ -31,7 +31,7 @@ S_k_omega = llg_data[:, 2]
 fontsize=12
 xlabel = r'$k/\pi$'
 ylabel = r'$\omega$'
-clabel = r'$|\chi| = |m_y\;/\;h_{app\;x}|$'
+clabel = r'$|m_y(k, \omega)|$'
 legend_text = r'$m_x( n = 0, t )$'
 # Set the minimum value for the color scale
 vmin_self = 0.09

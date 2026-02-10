@@ -73,10 +73,10 @@ def output_heatmap(
     plt.xlabel(xlabel, fontsize=fontsize)
     plt.ylabel(ylabel, fontsize=fontsize)
     ymax_self = omega_max/10
-    plt.ylim(h_app_norm-10, h_app_norm+60)
+    plt.ylim(h_app_static-10, h_app_static+60)
     #ideal plot
     k_array = np.linspace(0, k_max, Lx)
-    ideal_array = h_app_norm + 2*J*( 1-np.cos(k_array*np.pi) )
+    ideal_array = h_app_static + 2*J*( 1-np.cos(k_array*np.pi) )
     plt.plot(k_array, ideal_array, linestyle='--', c='ghostwhite', lw=1, label="hz + 2J(1-cos(k))")
 
     plt.title(title_text, fontsize=fontsize)

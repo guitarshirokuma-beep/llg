@@ -19,7 +19,7 @@ void initialize(Params &p, Make2DArray &S, Make2DArray &h_app)
 		{
 			double local_pulse = gaussian(n, p.local_pulse_center, p.sigma_x);
 			double time_pulse = gaussian(step, p.time_pulse_center, p.sigma_step);
-			h_app(n, step).x = p.pulse_norm * time_pulse * local_pulse;
+			h_app(n, step).x = p.pulse_norm * time_pulse * local_pulse + p.sin_norm * sin(p.omega * step * p.dt);
 			h_app(n, step).y = 0.0;
 			h_app(n, step).z = p.h_app_static;
 		}

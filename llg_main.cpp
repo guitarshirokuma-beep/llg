@@ -49,7 +49,7 @@ int main()
 		[](const Vec3 &v)
 		{ return v.x; });
 
-	output_data(p, response, 'x', run_dir);
+	output_data(p, S, 'y', run_dir);
 
 	// send PATH to python
 	std::string cmd = "/home/seukuu/cpp_source_code/venv/bin/python llg.py " + run_dir;
