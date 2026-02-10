@@ -25,7 +25,7 @@ sigma_step = params_data[10]
 
 title_text = rf'$Lx = {Lx}, N_{{steps}} = {N_steps}, h_z = {h_app_norm}, h_x\;pulse = {pulse_norm},$'+"\n"+rf'$\sigma_x = {sigma_x}, \sigma_{{step}} = {sigma_step}, dt = {dt}, J = {J}, \lambda = {lam}$'
 
-llg_data = np.loadtxt("llg.dat")
+llg_data = np.loadtxt(f"{run_dir}/llg.dat")
 S_k_omega = llg_data[:, 2]
 
 fontsize=12

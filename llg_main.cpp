@@ -27,10 +27,6 @@ int main()
 	save_params(p, run_dir);
 	output_params(p);
 
-	// send PATH to python
-	std::string cmd = "/home/seukuu/cpp_source_code/venv/bin/python llg.py " + run_dir;
-	system(cmd.c_str());
-
 	Make2DArray S(p.Lx, p.N_steps);
 	Make2DArray h_app(p.Lx, p.N_steps);
 	initialize(p, S, h_app);
@@ -65,7 +61,11 @@ int main()
 		[](const Vec3 &v)
 		{ return v.x; });
 
-	output_data(p, response, 'x');
+	output_data(p, response, 'x', run_dir);
+
+	// send PATH to python
+	std::string cmd = "/home/seukuu/cpp_source_code/venv/bin/python llg.py " + run_dir;
+	system(cmd.c_str());
 
 	return 0;
 }

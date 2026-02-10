@@ -83,12 +83,14 @@ void input(
 void output_data(
 	const Params &p,
 	const Make1DArray &S,
-	char axis);
+	char axis,
+	const std::string &dir);
 
 void output_data(
 	const Params &p,
 	const Make2DArray &S,
-	char axis);
+	char axis,
+	const std::string &dir);
 
 void output_params(const Params &p);
 
