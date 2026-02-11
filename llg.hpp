@@ -12,6 +12,9 @@ class Vec3
 {
 public:
 	double x, y, z;
+	Vec3() : x(0.0), y(0.0), z(0.0) {}
+	Vec3(double x_, double y_, double z_)
+		: x(x_), y(y_), z(z_) {}
 	Vec3 cross(const Vec3 &other) const;
 	Vec3 operator+(const Vec3 &other) const;
 	Vec3 &operator+=(const Vec3 &other);
