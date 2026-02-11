@@ -18,7 +18,7 @@ def output_normal_graph(
     ax.set_title(label=title_text,fontsize=fontsize)
     ax.tick_params(labelsize=fontsize)
     ax.set_xlabel(xlabel, fontsize=fontsize)
-    ax.set_xlim(0, 100)
+    ax.set_xlim(0, 50)
     ax.set_ylabel(ylabel, fontsize=fontsize)
     ax.plot(x_data, y_data, label=legend_text)
     ax.legend(fontsize=fontsize)

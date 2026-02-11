@@ -13,8 +13,8 @@ public:
 	const double pulse_norm = 0.0;
 	const double time_pulse_center = double(N_steps) / 2.0;
 	const double local_pulse_center = double(Lx) / 2.0;
-	const double sin_norm = 1.0;
-	const double omega = 30.0;
+	const double sin_norm = 10.0;
+	const double omega = 10.0;
 	const double delta = 1e-13; // for avoid_zero()
 	const double dt = 0.001;
 	const double gamma = 1.0;
