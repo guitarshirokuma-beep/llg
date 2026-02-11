@@ -51,18 +51,18 @@ llg_plot.output_normal_graph(
     run_dir,
 )
 
-llg_plot.output_heatmap(
-    title_text,
-    Lx,
-    N_steps,
-    S_k_omega,
-    dt,
-    h_app_static,
-    J,
-    vmin_self,
-    xlabel,
-    ylabel,
-    fontsize,
-    clabel,
-    run_dir,
-)
+# llg_plot.output_heatmap(
+#     title_text,
+#     Lx,
+#     N_steps,
+#     S_k_omega,
+#     dt,
+#     h_app_static,
+#     J,
+#     vmin_self,
+#     xlabel,
+#     ylabel,
+#     fontsize,
+#     clabel,
+#     run_dir,
+# )
