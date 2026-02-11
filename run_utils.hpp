@@ -77,4 +77,20 @@ void save_params(const Params &p, const std::string &dir)
     cout << "sigma_x = " << p.sigma_x << "\n";
     cout << "sigma_step = " << p.sigma_step << "\n";
     cout << "delta = " << p.delta << "\n";
+
+    // for python loading
+    ofstream ofs("llg_params.dat");
+	ofs << p.Lx << "\n";
+	ofs << p.N_steps << "\n";
+	ofs << p.lam << "\n";
+	ofs << p.h_app_static << "\n";
+	ofs << p.pulse_norm << "\n";
+	ofs << p.dt << "\n";
+	ofs << p.gamma << "\n";
+	ofs << p.J << "\n";
+	ofs << p.sigma_x << "\n";
+	ofs << p.delta << "\n";
+	ofs << p.sigma_step << "\n";
+	ofs << p.sin_norm << "\n";
+	ofs << p.omega << "\n";
 }

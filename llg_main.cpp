@@ -13,7 +13,6 @@ int main()
 	// mkdir for log
 	auto run_dir = make_run_dir();
 	save_params(p, run_dir);
-	output_params(p);
 
 	Make2DArray S(p.Lx, p.N_steps);
 	Make2DArray h_app(p.Lx, p.N_steps);
