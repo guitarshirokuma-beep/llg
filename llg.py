@@ -34,7 +34,7 @@ y_data = llg_data[:, 1]
 
 fontsize=12
 xlabel = r'$\omega$'
-ylabel = r'$|m_y(n=0, \omega)$'
+ylabel = r'$|m_y(k=0, \omega)|$'
 clabel = r'$|m_y(k, \omega)|$'
 legend_text = r'$m_x( n = 0, t )$'
 # Set the minimum value for the color scale

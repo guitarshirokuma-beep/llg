@@ -63,4 +63,18 @@ void save_params(const Params &p, const std::string &dir)
     f << "dt " << p.dt << "\n";
     f << "gamma " << p.gamma << "\n";
     f << "git_hash " << get_git_hash() << "\n";
+
+    cout << "Lx = " << p.Lx << "\n";
+    cout << "N_steps = " << p.N_steps << "\n";
+    cout << "lam = " << p.lam << "\n";
+    cout << "h_app_static = " << p.h_app_static << "\n";
+    cout << "pulse_norm = " << p.pulse_norm << "\n";
+    cout << "sin_norm = " << p.sin_norm << "\n";
+    cout << "omega = " << p.omega << "\n";
+    cout << "dt = " << p.dt << "\n";
+    cout << "gamma = " << p.gamma << "\n";
+    cout << "J = " << p.J << "\n";
+    cout << "sigma_x = " << p.sigma_x << "\n";
+    cout << "sigma_step = " << p.sigma_step << "\n";
+    cout << "delta = " << p.delta << "\n";
 }
