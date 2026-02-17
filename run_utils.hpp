@@ -1,5 +1,6 @@
 #include <filesystem>
 #include <chrono>
+#include <format>
 #include <iomanip>
 #include <sstream>
 #include "params.hpp"
@@ -9,6 +10,9 @@ std::string make_run_dir()
     auto now = std::chrono::system_clock::now();
     auto t = std::chrono::system_clock::to_time_t(now);
 
+    auto name = std::format("runs/run_{:%Y%m%d_%H%M%S}", now);
+
+    cout << "dir_name: " << name << "\n";
     std::stringstream ss;
     ss << "runs/run_" << std::put_time(std::localtime(&t), "%Y%m%d_%H%M%S");
 
