@@ -34,7 +34,7 @@ inline std::string get_git_hash()
 
     pclose(pipe);
 
-    // 改行除去
+    // remove "\n"
     if (!result.empty() && result.back() == '\n')
         result.pop_back();
 
@@ -80,17 +80,17 @@ void save_params(const Params &p, const std::string &dir)
 
     // for python loading
     ofstream ofs("llg_params.dat");
-	ofs << p.Lx << "\n";
-	ofs << p.N_steps << "\n";
-	ofs << p.lam << "\n";
-	ofs << p.h_app_static << "\n";
-	ofs << p.pulse_norm << "\n";
-	ofs << p.dt << "\n";
-	ofs << p.gamma << "\n";
-	ofs << p.J << "\n";
-	ofs << p.sigma_x << "\n";
-	ofs << p.delta << "\n";
-	ofs << p.sigma_step << "\n";
-	ofs << p.sin_norm << "\n";
-	ofs << p.omega << "\n";
+    ofs << p.Lx << "\n";
+    ofs << p.N_steps << "\n";
+    ofs << p.lam << "\n";
+    ofs << p.h_app_static << "\n";
+    ofs << p.pulse_norm << "\n";
+    ofs << p.dt << "\n";
+    ofs << p.gamma << "\n";
+    ofs << p.J << "\n";
+    ofs << p.sigma_x << "\n";
+    ofs << p.delta << "\n";
+    ofs << p.sigma_step << "\n";
+    ofs << p.sin_norm << "\n";
+    ofs << p.omega << "\n";
 }
