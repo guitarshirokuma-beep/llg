@@ -120,4 +120,9 @@ Make2DArray calc_response(
 	const Make2DArray &S,
 	const Make2DArray &h_app);
 
+std::string make_run_dir();
+
+std::string get_git_hash();
+
+void save_params(const Params &p, const std::string &dir);
 #endif

@@ -3,7 +3,6 @@
 #include <vector>
 #include "llg.hpp"
 #include "def_Make2DArray_func.hpp"
-#include "run_utils.hpp"
 using namespace std;
 
 int main()
