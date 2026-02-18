@@ -9,16 +9,14 @@ std::string make_run_dir()
 {
     using namespace std::chrono;
 
-    auto now = floor<seconds>(system_clock::now());
+    auto now = system_clock::now();
 
     zoned_time zt(current_zone(), now);
-    auto local_time = zt.get_local_time();
+    auto local_time = floor<seconds>(zt.get_local_time());
 
     auto name = std::format(
-        "runs/run_{:%Y%m%d}/run_{:%Y%m%d_%H%M%S}",
-        local_time, local_time);
-
-    std::stringstream ss;
+        "runs/run_{0:%Y%m%d}/run_{0:%Y%m%d_%H%M%S}",
+        local_time);
 
     std::filesystem::create_directories(name);
     return name;
