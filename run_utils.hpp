@@ -7,10 +7,15 @@
 
 std::string make_run_dir()
 {
-    auto now = std::chrono::system_clock::now();
+    using namespace std::chrono;
+
+    auto now = floor<seconds>(system_clock::now());
+
+    zoned_time zt(current_zone(), now);
+
     auto t = std::chrono::system_clock::to_time_t(now);
 
-    auto name = std::format("runs/run_{:%Y%m%d_%H%M%S}", now);
+    auto name = std::format("runs/run_{:%Y%m%d_%H%M%S}", zt.get_local_time());
 
     cout << "dir_name: " << name << "\n";
     std::stringstream ss;
