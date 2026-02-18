@@ -12,17 +12,16 @@ std::string make_run_dir()
     auto now = floor<seconds>(system_clock::now());
 
     zoned_time zt(current_zone(), now);
+    auto local_time = zt.get_local_time();
 
-    auto t = std::chrono::system_clock::to_time_t(now);
+    auto name = std::format(
+        "runs/run_{:%Y%m%d}/run_{:%Y%m%d_%H%M%S}",
+        local_time, local_time);
 
-    auto name = std::format("runs/run_{:%Y%m%d_%H%M%S}", zt.get_local_time());
-
-    cout << "dir_name: " << name << "\n";
     std::stringstream ss;
-    ss << "runs/run_" << std::put_time(std::localtime(&t), "%Y%m%d_%H%M%S");
 
-    std::filesystem::create_directories(ss.str());
-    return ss.str();
+    std::filesystem::create_directories(name);
+    return name;
 }
 
 #include <cstdio>
