@@ -4,7 +4,7 @@
 struct Params
 {
 public:
-	const int Lx = 1024;
+	const int Lx = 4;
 	const int N_steps = 32768;
 	const double lam = 0.05;
 	const double h_app_static = 5.0;

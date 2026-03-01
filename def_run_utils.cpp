@@ -1,8 +1,10 @@
 #include <filesystem>
 #include <chrono>
 #include <format>
-#include <iomanip>
-#include <sstream>
+#include <fstream>
+#include <array>
+#include <cstdio>
+
 #include "params.hpp"
 #include "llg.hpp"
 
@@ -22,10 +24,6 @@ std::string make_run_dir()
     std::filesystem::create_directories(name);
     return name;
 }
-
-#include <cstdio>
-#include <memory>
-#include <array>
 
 std::string get_git_hash()
 {
@@ -47,8 +45,6 @@ std::string get_git_hash()
 
     return result;
 }
-
-#include <fstream>
 
 void save_params(const Params &p, const std::string &dir)
 {
