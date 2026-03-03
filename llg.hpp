@@ -6,6 +6,7 @@
 #include "params.hpp"
 #include <fftw3.h>
 #include <math.h>
+#include <filesystem>
 using namespace std;
 
 class Vec3
@@ -120,9 +121,9 @@ Make2DArray calc_response(
 	const Make2DArray &S,
 	const Make2DArray &h_app);
 
-std::string make_run_dir();
+std::filesystem::path make_run_dir();
 
 std::string get_git_hash();
 
-void save_params(const Params &p, const std::string &dir);
+void save_params(const Params &p, const std::filesystem::path &dir);
 #endif

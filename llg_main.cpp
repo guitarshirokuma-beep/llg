@@ -3,6 +3,7 @@
 #include <vector>
 #include "llg.hpp"
 #include "def_Make2DArray_func.hpp"
+#include <filesystem>
 using namespace std;
 
 int main()
@@ -51,7 +52,9 @@ int main()
 	output_data(p, S_n_0, 'y', run_dir);
 
 	// send PATH to python
-	std::string cmd = "/home/seukuu/cpp_source_code/venv/bin/python llg.py " + run_dir;
+	std::string cmd =
+		"/home/seukuu/cpp_source_code/venv/bin/python llg.py " + run_dir.string();
+
 	system(cmd.c_str());
 
 	return 0;

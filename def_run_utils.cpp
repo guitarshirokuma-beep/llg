@@ -8,21 +8,21 @@
 #include "params.hpp"
 #include "llg.hpp"
 
-std::string make_run_dir()
+std::filesystem::path make_run_dir()
 {
     using namespace std::chrono;
 
     auto now = system_clock::now();
-
     zoned_time zt(current_zone(), now);
-    auto local_time = floor<seconds>(zt.get_local_time());
+    auto local = floor<seconds>(zt.get_local_time());
 
-    auto name = std::format(
-        "runs/run_{0:%Y%m%d}/run_{0:%Y%m%d_%H%M%S}",
-        local_time);
+    auto dir = std::filesystem::path(
+        std::format(
+            "runs/run_{0:%Y%m%d}/run_{0:%Y%m%d_%H%M%S}",
+            local));
 
-    std::filesystem::create_directories(name);
-    return name;
+    std::filesystem::create_directories(dir);
+    return dir;
 }
 
 std::string get_git_hash()
@@ -46,9 +46,9 @@ std::string get_git_hash()
     return result;
 }
 
-void save_params(const Params &p, const std::string &dir)
+void save_params(const Params &p, const std::filesystem::path &dir)
 {
-    std::ofstream f(dir + "/params.txt");
+    std::ofstream f(dir / "params.txt");
 
     f << "Lx " << p.Lx << "\n";
     f << "N_steps " << p.N_steps << "\n";
