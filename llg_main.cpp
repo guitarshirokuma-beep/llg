@@ -51,11 +51,7 @@ int main()
 	Make1DArray S_n_0 = extract_const_n(p, S, 0);
 	output_data(p, S_n_0, 'y', run_dir);
 
-	// send PATH to python
-	std::string cmd =
-		"/home/seukuu/cpp_source_code/venv/bin/python llg.py " + run_dir.string();
-
-	system(cmd.c_str());
+	run_python(run_dir);
 
 	return 0;
 }

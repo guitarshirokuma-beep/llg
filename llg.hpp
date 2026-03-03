@@ -126,4 +126,6 @@ std::filesystem::path make_run_dir();
 std::string get_git_hash();
 
 void save_params(const Params &p, const std::filesystem::path &dir);
+
+void run_python(const std::filesystem::path &dir);
 #endif

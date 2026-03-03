@@ -4,6 +4,8 @@
 #include <fstream>
 #include <array>
 #include <cstdio>
+#include <unistd.h>
+#include <sys/wait.h>
 
 #include "params.hpp"
 #include "llg.hpp"
@@ -96,4 +98,54 @@ void save_params(const Params &p, const std::filesystem::path &dir)
     ofs << p.sigma_step << "\n";
     ofs << p.sin_norm << "\n";
     ofs << p.omega << "\n";
+}
+
+void run_python(const std::filesystem::path &dir)
+{
+    pid_t pid = fork();
+
+    if (pid < 0)
+    {
+        perror("fork failed");
+        _exit(EXIT_FAILURE);
+    }
+
+    if (pid == 0)
+    {
+        execl(
+            "/home/seukuu/cpp_source_code/venv/bin/python",
+            "/home/seukuu/cpp_source_code/venv/bin/python",
+            "/home/seukuu/cpp_source_code/llg.py",
+            dir.c_str(),
+            (char *)nullptr);
+
+        perror("execl failed");
+        _exit(EXIT_FAILURE);
+    }
+
+    int status;
+    while (waitpid(pid, &status, 0) == -1)
+    {
+        if (errno == EINTR)
+        {
+            continue;
+        }
+
+        perror("waitpid failed");
+        _exit(EXIT_FAILURE);
+    }
+
+    if (WIFEXITED(status))
+    {
+        int code = WEXITSTATUS(status);
+        if (code != 0)
+        {
+            std::cerr << "Python script exited with status: " << code << "\n";
+        }
+    }
+
+    else if (WIFSIGNALED(status))
+    {
+        std::cerr << "Python killed by signal: " << WTERMSIG(status) << "\n";
+    }
 }
