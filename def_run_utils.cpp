@@ -30,22 +30,25 @@ std::filesystem::path make_run_dir()
 std::string get_git_hash()
 {
     std::array<char, 128> buffer;
-    std::string result;
+    static std::string cached;
+
+	if(!cached.empty())
+		return cached;
 
     FILE *pipe = popen("git rev-parse --short HEAD", "r");
     if (!pipe)
         return "unknown";
 
     while (fgets(buffer.data(), buffer.size(), pipe) != nullptr)
-        result += buffer.data();
+        cached += buffer.data();
 
     pclose(pipe);
 
     // remove "\n"
-    if (!result.empty() && result.back() == '\n')
-        result.pop_back();
+    if (!cached.empty() && cached.back() == '\n')
+        cached.pop_back();
 
-    return result;
+    return cached;
 }
 
 void save_params(const Params &p, const std::filesystem::path &dir)
