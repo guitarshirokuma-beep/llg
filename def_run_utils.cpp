@@ -29,7 +29,7 @@ std::filesystem::path make_run_dir()
 
 std::string get_git_hash()
 {
-    std::array<char, 128> buffer;
+    std::array<char, 128> buffer{};
     static std::string cached;
 
 	if(!cached.empty())
@@ -39,7 +39,7 @@ std::string get_git_hash()
     if (!pipe)
         return "unknown";
 
-    while (fgets(buffer.data(), buffer.size(), pipe) != nullptr)
+    while (fgets(buffer.data(), buffer.size(), pipe))
         cached += buffer.data();
 
     pclose(pipe);
