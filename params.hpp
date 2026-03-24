@@ -1,5 +1,6 @@
 #ifndef PARAMS_H
 #define PARAMS_H
+#include <filesystem>
 
 struct Params
 {
@@ -19,6 +20,7 @@ public:
 	const double dt = 0.001;
 	const double gamma = 1.0;
 	const double J = 1.0;
+    void save_params(const std::filesystem::path& dir) const;
 };
 
 #endif

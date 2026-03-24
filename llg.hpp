@@ -123,11 +123,13 @@ Make2DArray calc_response(
 
 std::filesystem::path make_run_dir();
 
-void write_params_file(const Params &p, const std::filesystem::path &dir);
-
 std::string get_git_hash();
 
-void save_params(const Params &p, const std::filesystem::path &dir);
-
 void run_python(const std::filesystem::path &dir);
+
+void write_params_file(const Params &p, const std::filesystem::path &dir);
+
+void print_params(const Params &p);
+
+void write_python_params(const Params& p);
 #endif
