@@ -64,9 +64,9 @@ void run_python(const std::filesystem::path &dir)
     if (pid == 0)
     {
         execl(
-            "/home/seukuu/cpp_source_code/venv/bin/python",
-            "/home/seukuu/cpp_source_code/venv/bin/python",
-            "/home/seukuu/cpp_source_code/llg.py",
+            "/home/seukuu/llg_source_code/venv/bin/python",
+            "/home/seukuu/llg_source_code/venv/bin/python",
+            "/home/seukuu/llg_source_code/llg.py",
             dir.c_str(),
             (char *)nullptr);
 
