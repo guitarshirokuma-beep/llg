@@ -6,38 +6,38 @@
 #include"llg.hpp"
 using namespace std;
 
-Make1DArray extract_const_step(
+Array1DVec3 extract_const_step(
 	const Params&		p,
-	const Make2DArray&	S_2d,
+	const Array2DVec3&	S_2d,
 	int					step
 ){
-	Make1DArray S_1d(p.Lx);
+	Array1DVec3 S_1d(p.Lx);
 	for(int n=0; n<p.Lx; n++){
 		S_1d(n) = S_2d(n, step);
 	}
 	return S_1d;
 }
 
-Make1DArray extract_const_n(
+Array1DVec3 extract_const_n(
 	const Params&		p,
-	const Make2DArray&	S_2d,
+	const Array2DVec3&	S_2d,
 	int					n
 ){
-	Make1DArray S_1d(p.N_steps);
+	Array1DVec3 S_1d(p.N_steps);
 	for(int step=0; step<p.N_steps; step++){
 		S_1d(step) = S_2d(n, step);
 	}
 	return S_1d;
 }
 
-Make1DArray calc_dSdt(
+Array1DVec3 calc_dSdt(
 	const Params&		p,
-	const Make1DArray&	S_step,
-	const Make2DArray&	h_app,
-	const Make1DArray&	h_exc,
+	const Array1DVec3&	S_step,
+	const Array2DVec3&	h_app,
+	const Array1DVec3&	h_exc,
 	int					step
 ){
-	Make1DArray dS_over_dt(p.Lx);
+	Array1DVec3 dS_over_dt(p.Lx);
 	for(int n=0; n<p.Lx; n++){
 		Vec3 h = h_app(n, step) + h_exc(n);
 		Vec3 Sxh = S_step(n).cross(h);
@@ -51,11 +51,11 @@ Make1DArray calc_dSdt(
 	return dS_over_dt;
 }
 
-Make1DArray calc_h_exc(
+Array1DVec3 calc_h_exc(
 	const Params&		p,
-	const Make1DArray&	S_old
+	const Array1DVec3&	S_old
 ){
-	Make1DArray h_exc(p.Lx);
+	Array1DVec3 h_exc(p.Lx);
 	for(int n=0; n<p.Lx; n++){
 		h_exc(n) = S_old((n-1+p.Lx) % p.Lx);
 		h_exc(n) += S_old((n+1) % p.Lx);
@@ -64,9 +64,9 @@ Make1DArray calc_h_exc(
 	return h_exc;
 }
 
-Make1DArray& fft_1d_time(
+Array1DVec3& fft_1d_time(
 	const Params&	p,
-	Make1DArray&	S,
+	Array1DVec3&	S,
 	char			axis
 ){
 	fftw_complex *in, *out;
@@ -130,12 +130,12 @@ Make1DArray& fft_1d_time(
 	return S;
 }
 
-Make1DArray calc_response(
+Array1DVec3 calc_response(
 	const Params& p,
-	const Make1DArray& S,
-	const Make1DArray& h_app
+	const Array1DVec3& S,
+	const Array1DVec3& h_app
 ){
-	Make1DArray response(p.N_steps);
+	Array1DVec3 response(p.N_steps);
 	for(int step=0; step<p.N_steps; step++){
 		response(step) = S(step) / h_app(step);
 	}

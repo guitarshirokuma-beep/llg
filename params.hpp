@@ -7,6 +7,8 @@ struct Params
 public:
 	const int Lx = 4;
 	const int N_steps = 32768;
+    const std::size_t Lx_sizet = 4;
+    const std::size_t N_steps_sizet = 32768;
 	const double lam = 0.05;
 	const double h_app_static = 5.0;
 	const double sigma_x = 0.5;

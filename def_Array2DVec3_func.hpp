@@ -8,9 +8,9 @@
 #include <math.h>
 
 template <typename T1, typename T2>
-Make2DArray &fft_2d(
+Array2DVec3 &fft_2d(
 	const Params &p,
-	Make2DArray &S,
+	Array2DVec3 &S,
 	T1 axis_in,
 	T2 axis_out)
 {
@@ -48,14 +48,14 @@ Make2DArray &fft_2d(
 }
 
 template <typename T1, typename T2>
-Make2DArray calc_response(
+Array2DVec3 calc_response(
 	const Params &p,
-	const Make2DArray &S,
+	const Array2DVec3 &S,
 	T1 S_axis,
-	const Make2DArray &h_app,
+	const Array2DVec3 &h_app,
 	T2 h_axis)
 {
-	Make2DArray response(p.Lx, p.N_steps);
+	Array2DVec3 response(p.Lx, p.N_steps);
 	for (int n = 0; n < p.Lx; n++)
 	{
 		for (int step = 0; step < p.N_steps; step++)

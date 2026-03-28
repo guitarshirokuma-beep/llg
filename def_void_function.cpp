@@ -11,7 +11,7 @@ double gaussian(int n, double center, double sigma)
 	return exp(-0.5 * pow((double(n) - center) / sigma, 2));
 }
 
-void initialize(Params &p, Make2DArray &S, Make2DArray &h_app)
+void initialize(Params &p, Array2DVec3 &S, Array2DVec3 &h_app)
 {
 	for (int n = 0; n < p.Lx; n++)
 	{
@@ -36,8 +36,8 @@ void initialize(Params &p, Make2DArray &S, Make2DArray &h_app)
 
 void input(
 	const Params &p,
-	Make2DArray &S,
-	const Make1DArray &S_new,
+	Array2DVec3 &S,
+	const Array1DVec3 &S_new,
 	int step)
 {
 	for (int n = 0; n < p.Lx; n++)
@@ -48,19 +48,19 @@ void input(
 
 void run_llg(
 	const Params &p,
-	Make2DArray &S,
-	const Make2DArray &h_app)
+	Array2DVec3 &S,
+	const Array2DVec3 &h_app)
 {
 	for (int step = 0; step < p.N_steps - 1; step++)
 	{
-		Make1DArray S_old = extract_const_step(p, S, step);
-		Make1DArray h_exc = calc_h_exc(p, S_old);
-		Make1DArray dS_over_dt = calc_dSdt(p, S_old, h_app, h_exc, step);
-		Make1DArray S_pred = S_old + p.dt * dS_over_dt;
+		Array1DVec3 S_old = extract_const_step(p, S, step);
+		Array1DVec3 h_exc = calc_h_exc(p, S_old);
+		Array1DVec3 dS_over_dt = calc_dSdt(p, S_old, h_app, h_exc, step);
+		Array1DVec3 S_pred = S_old + p.dt * dS_over_dt;
 		S_pred.normalize();
-		Make1DArray h_exc_2 = calc_h_exc(p, S_pred);
-		Make1DArray dS_over_dt_2 = calc_dSdt(p, S_pred, h_app, h_exc_2, step);
-		Make1DArray S_new = S_old + 0.5 * p.dt * (dS_over_dt + dS_over_dt_2);
+		Array1DVec3 h_exc_2 = calc_h_exc(p, S_pred);
+		Array1DVec3 dS_over_dt_2 = calc_dSdt(p, S_pred, h_app, h_exc_2, step);
+		Array1DVec3 S_new = S_old + 0.5 * p.dt * (dS_over_dt + dS_over_dt_2);
 		S_new.normalize();
 		input(p, S, S_new, step + 1);
 	}
@@ -68,7 +68,7 @@ void run_llg(
 
 void output_data(
 	const Params &p,
-	const Make1DArray &S,
+	const Array1DVec3 &S,
 	char axis,
 	const std::string &dir)
 {
@@ -103,7 +103,7 @@ void output_data(
 
 void output_data(
 	const Params &p,
-	const Make2DArray &S,
+	const Array2DVec3 &S,
 	char axis,
 	const std::string &dir)
 {
@@ -147,11 +147,11 @@ void output_data(
 
 void avoid_zero(
 	const Params &p,
-	Make2DArray &h_app)
+	Array2DVec3 &h_app)
 {
-	for (int n = 0; n < h_app.Lx; n++)
+	for (int n = 0; n < h_app.size_x(); ++n)
 	{
-		for (int step = 0; step < h_app.N_steps; step++)
+		for (int step = 0; step < h_app.size_x(); step++)
 		{
 			if (h_app(n, step).x < p.delta)
 			{

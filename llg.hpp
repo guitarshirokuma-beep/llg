@@ -24,87 +24,100 @@ public:
 	void normalize();
 };
 
-class Make1DArray
+class Array1DVec3
 {
 public:
 	int Lx;
 	vector<Vec3> val;
-	Make1DArray(int Lx_)
+	Array1DVec3(int Lx_)
 		: Lx(Lx_), val(Lx_) {}
 	Vec3 &operator()(int x);
 	const Vec3 &operator()(int x) const;
-	Make1DArray operator+(const Make1DArray &other) const;
-	Make1DArray &operator+=(const Make1DArray &other);
-	friend Make1DArray operator*(double c, const Make1DArray &a);
-	friend Make1DArray operator/(const Make1DArray &a, const Make1DArray &b);
+	Array1DVec3 operator+(const Array1DVec3 &other) const;
+	Array1DVec3 &operator+=(const Array1DVec3 &other);
+	friend Array1DVec3 operator*(double c, const Array1DVec3 &a);
+	friend Array1DVec3 operator/(const Array1DVec3 &a, const Array1DVec3 &b);
 	void normalize();
 };
 
-class Make2DArray
+class Array2DVec3
 {
+private:
+    std::size_t Lx_;
+    std::size_t N_steps_;
+    std::vector<Vec3> data_;
+    
+    std::size_t index(std::size_t x, std::size_t t) const {
+        return x * N_steps_ + t;
+    }
+    
 public:
-	int Lx, N_steps;
-	vector<Vec3> val;
-	Make2DArray(int Lx_, int N_steps_)
-		: Lx(Lx_), N_steps(N_steps_), val(Lx_ * N_steps_) {}
-	Vec3 &operator()(int x, int t);
-	const Vec3 &operator()(int x, int t) const;
-	friend Make2DArray operator/(
-		const Make2DArray &a,
-		const Make2DArray &b);
+    Array2DVec3(std::size_t Lx, std::size_t N_steps)
+        : Lx_(Lx), N_steps_(N_steps), data_(Lx * N_steps) {}
+
+    // --- access ---
+	Vec3& operator()(std::size_t x, std::size_t t);
+	const Vec3 &operator()(std::size_t x, std::size_t t) const;
+	friend Array2DVec3 operator/(
+		const Array2DVec3 &a,
+		const Array2DVec3 &b);
+    
+    // --- get size ---
+    std::size_t size_x() const { return Lx_; }
+    std::size_t size_t() const { return N_steps_; }
 };
 
-Make1DArray extract_const_step(
+Array1DVec3 extract_const_step(
 	const Params &p,
-	const Make2DArray &S_2d,
+	const Array2DVec3 &S_2d,
 	int step);
 
-Make1DArray extract_const_n(
+Array1DVec3 extract_const_n(
 	const Params &p,
-	const Make2DArray &S_2d,
+	const Array2DVec3 &S_2d,
 	int n);
 
-void initialize(Params &p, Make2DArray &S, Make2DArray &h_app);
+void initialize(Params &p, Array2DVec3 &S, Array2DVec3 &h_app);
 
 void run_llg(
 	const Params &p,
-	Make2DArray &S,
-	const Make2DArray &h_app);
+	Array2DVec3 &S,
+	const Array2DVec3 &h_app);
 
-Make1DArray calc_dSdt(
+Array1DVec3 calc_dSdt(
 	const Params &p,
-	const Make1DArray &S,
-	const Make2DArray &h_app,
-	const Make1DArray &h_exc,
+	const Array1DVec3 &S,
+	const Array2DVec3 &h_app,
+	const Array1DVec3 &h_exc,
 	int step);
 
 void input(
 	const Params &p,
-	Make2DArray &S,
-	const Make1DArray &S_new,
+	Array2DVec3 &S,
+	const Array1DVec3 &S_new,
 	int step);
 
 void output_data(
 	const Params &p,
-	const Make1DArray &S,
+	const Array1DVec3 &S,
 	char axis,
 	const std::string &dir);
 
 void output_data(
 	const Params &p,
-	const Make2DArray &S,
+	const Array2DVec3 &S,
 	char axis,
 	const std::string &dir);
 
 void output_params(const Params &p);
 
-Make1DArray calc_h_exc(
+Array1DVec3 calc_h_exc(
 	const Params &p,
-	const Make1DArray &S_old);
+	const Array1DVec3 &S_old);
 
-Make1DArray &fft_1d_time(
+Array1DVec3 &fft_1d_time(
 	const Params &p,
-	Make1DArray &S,
+	Array1DVec3 &S,
 	char axis);
 
 double gaussian(
@@ -114,12 +127,12 @@ double gaussian(
 
 void avoid_zero(
 	const Params &p,
-	Make2DArray &h_app);
+	Array2DVec3 &h_app);
 
-Make2DArray calc_response(
+Array2DVec3 calc_response(
 	const Params &p,
-	const Make2DArray &S,
-	const Make2DArray &h_app);
+	const Array2DVec3 &S,
+	const Array2DVec3 &h_app);
 
 std::filesystem::path make_run_dir();
 

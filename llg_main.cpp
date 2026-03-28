@@ -2,7 +2,7 @@
 #include <fstream>
 #include <vector>
 #include "llg.hpp"
-#include "def_Make2DArray_func.hpp"
+#include "def_Array2DVec3_func.hpp"
 #include <filesystem>
 using namespace std;
 
@@ -14,8 +14,8 @@ int main()
 	auto run_dir = make_run_dir();
 	p.save_params(run_dir);
 
-	Make2DArray S(p.Lx, p.N_steps);
-	Make2DArray h_app(p.Lx, p.N_steps);
+	Array2DVec3 S(p.Lx_sizet, p.N_steps_sizet);
+	Array2DVec3 h_app(p.Lx_sizet, p.N_steps_sizet);
 	initialize(p, S, h_app);
 	run_llg(p, S, h_app);
 
@@ -27,7 +27,7 @@ int main()
 		[](Vec3 &v, double val)
 		{ v.y = val; });
 
-	Make2DArray response(p.Lx, p.N_steps);
+	Array2DVec3 response(p.Lx, p.N_steps);
 
 	h_app = fft_2d(
 		p,
@@ -48,10 +48,12 @@ int main()
 		[](const Vec3 &v)
 		{ return v.x; });
 
-	Make1DArray S_n_0 = extract_const_n(p, S, 0);
+	Array1DVec3 S_n_0 = extract_const_n(p, S, 0);
 	output_data(p, S_n_0, 'y', run_dir);
 
 	run_python(run_dir);
-
+    
+    response = response / h_app;
+    
 	return 0;
 }
