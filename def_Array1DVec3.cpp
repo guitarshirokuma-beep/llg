@@ -3,51 +3,65 @@
 #include<vector>
 #include<cmath>
 #include<fftw3.h>
+#include<cassert>
 #include"llg.hpp"
 using namespace std;
 
-Vec3& Array1DVec3::operator()(int x){
-			return val[x];
+Vec3& Array1DVec3::operator()(std::size_t x){
+			return data_[x];
 		}
 
-const Vec3& Array1DVec3::operator()(int x) const{
-	return val[x];
+const Vec3& Array1DVec3::operator()(size_t x) const{
+	return data_[x];
 }
 
 Array1DVec3 Array1DVec3::operator+(const Array1DVec3& other) const{
-	Array1DVec3 result(Lx);
-	for(int n=0; n<Lx; n++){
-		result.val[n] = val[n] + other.val[n];
+    assert(Lx_ == other.Lx_);
+
+	Array1DVec3 result(Lx_);
+	for(std::size_t i=0; i<result.data_.size(); ++i)
+    {
+        result.data_[i] = data_[i] + other.data_[i];
 	}
 	return result;
 }
 
-Array1DVec3& Array1DVec3::operator+=(const Array1DVec3& other) {
-	Array1DVec3 result(Lx);
-	for(int n=0; n<Lx; n++){
-		val[n] += other.val[n];	
+Array1DVec3& Array1DVec3::operator+=(const Array1DVec3& other)
+{
+    assert(Lx_ == other.Lx_);
+    
+	for(std::size_t i=0; i<Lx_; ++i)
+    {
+		data_[i] += other.data_[i];	
 	}
+    
 	return *this;	
 }
 
-Array1DVec3 operator*(double c, const Array1DVec3& a){
-	Array1DVec3 result(a.Lx);
-	for(int n=0; n<a.Lx; n++){
-		result.val[n] = c * a.val[n];
+Array1DVec3 operator*(const double c, const Array1DVec3& a){
+	Array1DVec3 result(a.Lx_);
+	for(std::size_t i=0; i<a.Lx_; ++i)
+    {
+		result.data_[i] = c * a.data_[i];
 	}
 	return result;
 }
 
-Array1DVec3 operator/(const Array1DVec3& a, const Array1DVec3& b){
-	Array1DVec3 result(a.Lx);//Should be Lx N_steps?
-	for(int n=0; n<a.Lx; n++){
-		result.val[n] = a.val[n] / b.val[n];
+Array1DVec3 operator/(const Array1DVec3& a, const Array1DVec3& b)
+{
+    assert(a.Lx_ == b.Lx_);
+    
+	Array1DVec3 result(a.Lx_);	
+    for(std::size_t i=0; i<a.Lx_; ++i)
+    {
+        assert(b.data_[i].norm() != 0.0);
+		result.data_[i] = a.data_[i] / b.data_[i];
 	}
 	return result;
 }
 
 void Array1DVec3::normalize(){
-	for(int n=0; n<Lx; n++){
-		val[n].normalize();
+	for(std::size_t i=0; i<Lx_; ++i){
+		data_[i].normalize();
 	}
 }

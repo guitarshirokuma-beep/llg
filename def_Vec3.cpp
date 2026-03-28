@@ -48,3 +48,8 @@ void Vec3::normalize(){
 		cout << "size <= 0\n";
 	}
 }
+
+double Vec3::norm() const 
+{
+    return sqrt(x*x + y*y + z*z);
+}

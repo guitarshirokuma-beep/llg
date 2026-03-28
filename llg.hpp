@@ -22,20 +22,26 @@ public:
 	friend Vec3 operator*(double c, const Vec3 &a);
 	friend Vec3 operator/(const Vec3 &a, const Vec3 &b);
 	void normalize();
+    double norm() const;
 };
 
 class Array1DVec3
 {
+private:
+    std::size_t Lx_;
+    std::vector<Vec3> data_;
 public:
-	int Lx;
-	vector<Vec3> val;
-	Array1DVec3(int Lx_)
-		: Lx(Lx_), val(Lx_) {}
-	Vec3 &operator()(int x);
-	const Vec3 &operator()(int x) const;
+    explicit Array1DVec3(std::size_t Lx)
+        : Lx_(Lx), data_(Lx) {}
+ 
+    // --- access ---
+	Vec3 &operator()(std::size_t x);
+	const Vec3 &operator()(std::size_t x) const;
+    
+    // --- operator ---
 	Array1DVec3 operator+(const Array1DVec3 &other) const;
 	Array1DVec3 &operator+=(const Array1DVec3 &other);
-	friend Array1DVec3 operator*(double c, const Array1DVec3 &a);
+	friend Array1DVec3 operator*(const double c, const Array1DVec3 &a);
 	friend Array1DVec3 operator/(const Array1DVec3 &a, const Array1DVec3 &b);
 	void normalize();
 };
