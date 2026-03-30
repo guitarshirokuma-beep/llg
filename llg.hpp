@@ -7,6 +7,8 @@
 #include <fftw3.h>
 #include <math.h>
 #include <filesystem>
+#include <Eigen/Dense>
+
 using namespace std;
 
 class Vec3
@@ -29,14 +31,14 @@ class Array1DVec3
 {
 private:
     std::size_t Lx_;
-    std::vector<Vec3> data_;
+    std::vector<Eigen::Vector3d> data_;
 public:
     explicit Array1DVec3(std::size_t Lx)
         : Lx_(Lx), data_(Lx) {}
  
     // --- access ---
-	Vec3 &operator()(std::size_t x);
-	const Vec3 &operator()(std::size_t x) const;
+    Eigen::Vector3d &operator()(std::size_t x);
+	const Eigen::Vector3d &operator()(std::size_t x) const;
     
     // --- operator ---
 	Array1DVec3 operator+(const Array1DVec3 &other) const;
@@ -51,7 +53,7 @@ class Array2DVec3
 private:
     std::size_t Lx_;
     std::size_t N_steps_;
-    std::vector<Vec3> data_;
+    std::vector<Eigen::Vector3d> data_;
     
     std::size_t index(std::size_t x, std::size_t t) const {
         return x * N_steps_ + t;
@@ -62,8 +64,8 @@ public:
         : Lx_(Lx), N_steps_(N_steps), data_(Lx * N_steps) {}
 
     // --- access ---
-	Vec3& operator()(std::size_t x, std::size_t t);
-	const Vec3 &operator()(std::size_t x, std::size_t t) const;
+    Eigen::Vector3d& operator()(std::size_t x, std::size_t t);
+	const Eigen::Vector3d&operator()(std::size_t x, std::size_t t) const;
 	friend Array2DVec3 operator/(
 		const Array2DVec3 &a,
 		const Array2DVec3 &b);

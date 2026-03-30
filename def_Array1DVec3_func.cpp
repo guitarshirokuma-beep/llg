@@ -4,6 +4,7 @@
 #include<cmath>
 #include<fftw3.h>
 #include"llg.hpp"
+#include<Eigen/Dense>
 using namespace std;
 
 Array1DVec3 extract_const_step(
@@ -12,7 +13,7 @@ Array1DVec3 extract_const_step(
 	int					step
 ){
 	Array1DVec3 S_1d(p.Lx);
-	for(int n=0; n<p.Lx; n++){
+	for(std::size_t n=0; n<p.Lx; ++n){
 		S_1d(n) = S_2d(n, step);
 	}
 	return S_1d;
@@ -39,9 +40,9 @@ Array1DVec3 calc_dSdt(
 ){
 	Array1DVec3 dS_over_dt(p.Lx);
 	for(int n=0; n<p.Lx; n++){
-		Vec3 h = h_app(n, step) + h_exc(n);
-		Vec3 Sxh = S_step(n).cross(h);
-		Vec3 SxSxh = S_step(n).cross(Sxh);
+        Eigen::Vector3d h = h_app(n, step) + h_exc(n);
+        Eigen::Vector3d Sxh = S_step(n).cross(h);
+        Eigen::Vector3d SxSxh = S_step(n).cross(Sxh);
 
 		double c = (-p.gamma)/(1.0 + p.lam*p.lam);
 
@@ -79,19 +80,19 @@ Array1DVec3& fft_1d_time(
 	{
 	case 'x':
 		for(int step=0; step<p.N_steps; step++){
-			in[step][0] = S(step).x;
+			in[step][0] = S(step).x();
 			in[step][1] = 0.0;
 		}
 		break;
 	case 'y':
 		for(int step=0; step<p.N_steps; step++){
-			in[step][0] = S(step).y;
+			in[step][0] = S(step).y();
 			in[step][1] = 0.0;
 		}
 		break;
 	case 'z':
 		for(int step=0; step<p.N_steps; step++){
-			in[step][0] = S(step).z;
+			in[step][0] = S(step).z();
 			in[step][1] = 0.0;
 		}
 		break;
@@ -106,19 +107,19 @@ Array1DVec3& fft_1d_time(
 	case 'x':
 		for(int step=0; step<p.N_steps; step++){
 			double amp = sqrt(out[step][0]*out[step][0] + out[step][1]*out[step][1]);
-			S(step).x = amp;
+			S(step).x() = amp;
 		}
 		break;
 	case 'y':
 		for(int step=0; step<p.N_steps; step++){
 			double amp = sqrt(out[step][0]*out[step][0] + out[step][1]*out[step][1]);
-			S(step).y = amp;
+			S(step).y() = amp;
 		}
 		break;
 	case 'z':
 		for(int step=0; step<p.N_steps; step++){
 			double amp = sqrt(out[step][0]*out[step][0] + out[step][1]*out[step][1]);
-			S(step).z = amp;
+			S(step).z() = amp;
 		}
 		break;
 	default:
@@ -137,7 +138,7 @@ Array1DVec3 calc_response(
 ){
 	Array1DVec3 response(p.N_steps);
 	for(int step=0; step<p.N_steps; step++){
-		response(step) = S(step) / h_app(step);
+		response(step) = S(step).array() / h_app(step).array();
 	}
 	return response;
 }

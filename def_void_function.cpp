@@ -25,18 +25,18 @@ void initialize(Params &p, Array2DVec3 &S, Array2DVec3 &h_app)
             
 			double local_pulse = gaussian(n, p.local_pulse_center, p.sigma_x);
 			double time_pulse = gaussian(step, p.time_pulse_center, p.sigma_step);
-			h_app(n, step).x = p.pulse_norm * time_pulse * local_pulse + p.sin_norm * f * sin(p.omega * step * p.dt);
-			h_app(n, step).y = 0.0;
-			h_app(n, step).z = p.h_app_static;
+			h_app(n, step).x() = p.pulse_norm * time_pulse * local_pulse + p.sin_norm * f * sin(p.omega * step * p.dt);
+			h_app(n, step).y() = 0.0;
+			h_app(n, step).z() = p.h_app_static;
 		}
 	}
 
 	int step = 0;
 	for (int n = 0; n < p.Lx; n++)
 	{
-		S(n, step).x = 0.0;
-		S(n, step).y = 0.0;
-		S(n, step).z = 1.0;
+		S(n, step).x() = 0.0;
+		S(n, step).y() = 0.0;
+		S(n, step).z() = 1.0;
 	}
 }
 
@@ -85,21 +85,21 @@ void output_data(
 		f << "# step S(step).x\n";
 		for (int step = 0; step < p.N_steps; step++)
 		{
-			f << step << " " << S(step).x << "\n";
+			f << step << " " << S(step).x() << "\n";
 		}
 		break;
 	case 'y':
 		f << "# step S(step).y\n";
 		for (int step = 0; step < p.N_steps; step++)
 		{
-			f << step << " " << S(step).y << "\n";
+			f << step << " " << S(step).y() << "\n";
 		}
 		break;
 	case 'z':
 		f << "# step S(step).z\n";
 		for (int step = 0; step < p.N_steps; step++)
 		{
-			f << step << " " << S(step).z << "\n";
+			f << step << " " << S(step).z() << "\n";
 		}
 		break;
 	default:
@@ -122,7 +122,7 @@ void output_data(
 		{
 			for (int step = 0; step < p.N_steps; step++)
 			{
-				f << n << " " << step << " " << S(n, step).x << "\n";
+				f << n << " " << step << " " << S(n, step).x() << "\n";
 			}
 		}
 		break;
@@ -132,7 +132,7 @@ void output_data(
 		{
 			for (int step = 0; step < p.N_steps; step++)
 			{
-				f << n << " " << step << " " << S(n, step).y << "\n";
+				f << n << " " << step << " " << S(n, step).y() << "\n";
 			}
 		}
 		break;
@@ -142,7 +142,7 @@ void output_data(
 		{
 			for (int step = 0; step < p.N_steps; step++)
 			{
-				f << n << " " << step << " " << S(n, step).z << "\n";
+				f << n << " " << step << " " << S(n, step).z() << "\n";
 			}
 		}
 		break;
@@ -159,9 +159,9 @@ void avoid_zero(
 	{
 		for (int step = 0; step < h_app.size_x(); step++)
 		{
-			if (h_app(n, step).x < p.delta)
+			if (h_app(n, step).x() < p.delta)
 			{
-				h_app(n, step).x = p.delta;
+				h_app(n, step).x() = p.delta;
 			}
 		}
 	}

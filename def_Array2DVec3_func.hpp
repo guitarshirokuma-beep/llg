@@ -60,7 +60,7 @@ Array2DVec3 calc_response(
 	{
 		for (int step = 0; step < p.N_steps; step++)
 		{
-			response(n, step).x = S_axis(S(n, step)) / h_axis(h_app(n, step));
+			response(n, step).x() = S_axis(S(n, step)) / h_axis(h_app(n, step));
 		}
 	}
 	return response;

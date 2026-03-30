@@ -4,6 +4,7 @@
 #include "llg.hpp"
 #include "def_Array2DVec3_func.hpp"
 #include <filesystem>
+#include <Eigen/Dense>
 using namespace std;
 
 int main()
@@ -22,31 +23,31 @@ int main()
 	S = fft_2d(
 		p,
 		S,
-		[](const Vec3 &v)
-		{ return v.y; },
-		[](Vec3 &v, double val)
-		{ v.y = val; });
+		[](const Eigen::Vector3d& v)
+		{ return v.y(); },
+		[](Eigen::Vector3d &v, double val)
+		{ v.y() = val; });
 
 	Array2DVec3 response(p.Lx, p.N_steps);
 
 	h_app = fft_2d(
 		p,
 		h_app,
-		[](const Vec3 &v)
-		{ return v.x; },
-		[](Vec3 &v, double val)
-		{ v.x = val; });
+		[](const Eigen::Vector3d &v)
+		{ return v.x(); },
+		[](Eigen::Vector3d &v, double val)
+		{ v.x() = val; });
 
 	avoid_zero(p, h_app);
 
 	response = calc_response(
 		p,
 		S,
-		[](const Vec3 &v)
-		{ return v.y; },
+		[](const Eigen::Vector3d &v)
+		{ return v.y(); },
 		h_app,
-		[](const Vec3 &v)
-		{ return v.x; });
+		[](const Eigen::Vector3d &v)
+		{ return v.x(); });
 
 	Array1DVec3 S_n_0 = extract_const_n(p, S, 0);
 	output_data(p, S_n_0, 'y', run_dir);
