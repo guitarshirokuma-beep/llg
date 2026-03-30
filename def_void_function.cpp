@@ -13,13 +13,19 @@ double gaussian(int n, double center, double sigma)
 
 void initialize(Params &p, Array2DVec3 &S, Array2DVec3 &h_app)
 {
+
 	for (int n = 0; n < p.Lx; n++)
 	{
 		for (int step = 0; step < p.N_steps; step++)
 		{
+            double t = step * p.dt;
+            double f = (t < p.tau_ramp)
+                ? 0.5 * (1.0 - cos(M_PI * t / p.tau_ramp))
+                : 1.0;
+            
 			double local_pulse = gaussian(n, p.local_pulse_center, p.sigma_x);
 			double time_pulse = gaussian(step, p.time_pulse_center, p.sigma_step);
-			h_app(n, step).x = p.pulse_norm * time_pulse * local_pulse + p.sin_norm * sin(p.omega * step * p.dt);
+			h_app(n, step).x = p.pulse_norm * time_pulse * local_pulse + p.sin_norm * f * sin(p.omega * step * p.dt);
 			h_app(n, step).y = 0.0;
 			h_app(n, step).z = p.h_app_static;
 		}

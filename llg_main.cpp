@@ -53,7 +53,5 @@ int main()
 
 	run_python(run_dir);
     
-    response = response / h_app;
-    
 	return 0;
 }

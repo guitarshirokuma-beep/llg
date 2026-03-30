@@ -7,10 +7,10 @@ struct Params
 public:
 	const int Lx = 4;
 	const int N_steps = 32768;
-    const std::size_t Lx_sizet = 4;
-    const std::size_t N_steps_sizet = 32768;
+    const std::size_t Lx_sizet = Lx;
+    const std::size_t N_steps_sizet = N_steps;
 	const double lam = 0.05;
-	const double h_app_static = 5.0;
+	const double h_app_static = 0.0;
 	const double sigma_x = 0.5;
 	const double sigma_step = 0.8;
 	const double pulse_norm = 0.0;
@@ -22,6 +22,7 @@ public:
 	const double dt = 0.001;
 	const double gamma = 1.0;
 	const double J = 1.0;
+    const double tau_ramp = 9.0;
     void save_params(const std::filesystem::path& dir) const;
 };
 
