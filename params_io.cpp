@@ -37,6 +37,7 @@ void write_params_file(const Params &p, const std::filesystem::path &dir){
     f << "delta " << p.delta << "\n";
     f << "dt " << p.dt << "\n";
     f << "gamma " << p.gamma << "\n";
+    f << "tau_ramp " << p.tau_ramp << "\n";
     f << "git_hash " << get_git_hash() << "\n";
 }
 
@@ -54,6 +55,7 @@ void print_params(const Params &p){
     cout << "sigma_x = " << p.sigma_x << "\n";
     cout << "sigma_step = " << p.sigma_step << "\n";
     cout << "delta = " << p.delta << "\n";
+    cout << "tau_ramp = " << p.tau_ramp << "\n";
 }
 
 void write_python_params(const Params &p){
@@ -71,4 +73,5 @@ void write_python_params(const Params &p){
     ofs << p.sigma_step << "\n";
     ofs << p.sin_norm << "\n";
     ofs << p.omega << "\n";
+    ofs << p.tau_ramp << "\n";
 }

@@ -22,7 +22,7 @@ public:
 	const double dt = 0.001;
 	const double gamma = 1.0;
 	const double J = 1.0;
-    const double tau_ramp = 9.0;
+    const double tau_ramp = 0.9;
     void save_params(const std::filesystem::path& dir) const;
 };
 

@@ -24,8 +24,9 @@ delta = params_data[9]
 sigma_step = params_data[10]
 sin_norm = params_data[11]
 omega = params_data[12]
+tau_ramp = params_data[13]
 
-title_text = rf'$Lx = {Lx}, N_{{steps}} = {N_steps}, h_z = {h_app_static}, h_x\;pulse = {pulse_norm},$'+"\n"+rf'$\sigma_x = {sigma_x}, \sigma_{{step}} = {sigma_step}, dt = {dt}, J = {J}, \lambda = {lam}, h_{{sin}} = {sin_norm}, \omega = {omega}$'
+title_text = rf'$Lx = {Lx}, N_{{steps}} = {N_steps}, h_z = {h_app_static}, h_x\;pulse = {pulse_norm}, \sigma_x = {sigma_x}, $'+"\n"+rf'$\sigma_{{step}} = {sigma_step}, dt = {dt}, J = {J}, \lambda = {lam}, h_{{sin}} = {sin_norm}, \omega = {omega}, \tau = {tau_ramp}$'
 
 llg_data = np.loadtxt(f"{run_dir}/llg.dat")
 x_data = llg_data[:, 0]*(2.0*np.pi) / (dt*N_steps)

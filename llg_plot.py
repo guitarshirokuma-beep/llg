@@ -17,6 +17,7 @@ def output_normal_graph(
     ax.grid()
     ax.set_title(label=title_text,fontsize=fontsize)
     ax.tick_params(labelsize=fontsize)
+    ax.ticklabel_format(style='sci', axis='y', scilimits=(0,0))
     ax.set_xlabel(xlabel, fontsize=fontsize)
     ax.set_xlim(0, 50)
     ax.set_ylabel(ylabel, fontsize=fontsize)
