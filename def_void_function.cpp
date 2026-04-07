@@ -19,9 +19,7 @@ void initialize(Params &p, Array2DVec3 &S, Array2DVec3 &h_app)
 		for (int step = 0; step < p.N_steps; step++)
 		{
 			double t = step * p.dt;
-			double f = (t < p.tau_ramp)
-						   ? 0.5 * (1.0 - cos(M_PI * t / p.tau_ramp))
-						   : 1.0;
+			double f = 1.0 - exp(-t / p.tau_ramp);
 			double local_pulse = gaussian(n, p.local_pulse_center, p.sigma_x);
 			double time_pulse = gaussian(step, p.time_pulse_center, p.sigma_step);
 			h_app(n, step).x() = p.pulse_norm * time_pulse * local_pulse + p.sin_norm * f * sin(p.omega * step * p.dt);
