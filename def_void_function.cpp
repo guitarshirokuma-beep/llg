@@ -62,11 +62,17 @@ void run_llg(
 
 		// Runge-Kutta
 		Array1DVec3 k1 = dS_over_dt;
-		Array1DVec3 k2 = calc_dSdt(p, S_old + 0.5 * p.dt * k1, h_app, h_exc, step);
-		Array1DVec3 k3 = calc_dSdt(p, S_old + 0.5 * p.dt * k2, h_app, h_exc, step);
-		Array1DVec3 k4 = calc_dSdt(p, S_old + p.dt * k3, h_app, h_exc, step);
-
+		Array1DVec3 S_k2 = S_old + 0.5 * p.dt * k1;
+		S_k2.normalize();
+		Array1DVec3 k2 = calc_dSdt(p, S_k2, h_app, h_exc, step);
+		Array1DVec3 S_k3 = S_old + 0.5 * p.dt * k2;
+		S_k3.normalize();
+		Array1DVec3 k3 = calc_dSdt(p, S_k3, h_app, h_exc, step);
+		Array1DVec3 S_k4 = S_old + p.dt * k3;
+		S_k4.normalize();
+		Array1DVec3 k4 = calc_dSdt(p, S_k4, h_app, h_exc, step);
 		Array1DVec3 S_new = S_old + (p.dt / 6.0) * (k1 + 2.0 * k2 + 2.0 * k3 + k4);
+		S_new.normalize();
 
 		input(p, S, S_new, step + 1);
 	}
