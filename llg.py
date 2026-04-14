@@ -37,7 +37,7 @@ fontsize=12
 xlabel = r'$\omega$'
 ylabel = r'$|m_y(k=0, \omega)|$'
 clabel = r'$|m_y(k, \omega)|$'
-legend_text = r'$m_x( n = 0, t )$'
+legend_text = r'$m_y( n = 0, t )$'
 # Set the minimum value for the color scale
 vmin_self = 0.09
 
