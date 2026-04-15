@@ -24,23 +24,24 @@ public:
 	friend Vec3 operator*(double c, const Vec3 &a);
 	friend Vec3 operator/(const Vec3 &a, const Vec3 &b);
 	void normalize();
-    double norm() const;
+	double norm() const;
 };
 
 class Array1DVec3
 {
 private:
-    std::size_t Lx_;
-    std::vector<Eigen::Vector3d> data_;
+	std::size_t Lx_;
+	std::vector<Eigen::Vector3d> data_;
+
 public:
-    explicit Array1DVec3(std::size_t Lx)
-        : Lx_(Lx), data_(Lx) {}
- 
-    // --- access ---
-    Eigen::Vector3d &operator()(std::size_t x);
+	explicit Array1DVec3(std::size_t Lx)
+		: Lx_(Lx), data_(Lx) {}
+
+	// --- access ---
+	Eigen::Vector3d &operator()(std::size_t x);
 	const Eigen::Vector3d &operator()(std::size_t x) const;
-    
-    // --- operator ---
+
+	// --- operator ---
 	Array1DVec3 operator+(const Array1DVec3 &other) const;
 	Array1DVec3 &operator+=(const Array1DVec3 &other);
 	friend Array1DVec3 operator*(const double c, const Array1DVec3 &a);
@@ -51,28 +52,29 @@ public:
 class Array2DVec3
 {
 private:
-    std::size_t Lx_;
-    std::size_t N_steps_;
-    std::vector<Eigen::Vector3d> data_;
-    
-    std::size_t index(std::size_t x, std::size_t t) const {
-        return x * N_steps_ + t;
-    }
-    
-public:
-    Array2DVec3(std::size_t Lx, std::size_t N_steps)
-        : Lx_(Lx), N_steps_(N_steps), data_(Lx * N_steps) {}
+	std::size_t Lx_;
+	std::size_t N_steps_;
+	std::vector<Eigen::Vector3d> data_;
 
-    // --- access ---
-    Eigen::Vector3d& operator()(std::size_t x, std::size_t t);
-	const Eigen::Vector3d&operator()(std::size_t x, std::size_t t) const;
+	std::size_t index(std::size_t x, std::size_t t) const
+	{
+		return x * N_steps_ + t;
+	}
+
+public:
+	Array2DVec3(std::size_t Lx, std::size_t N_steps)
+		: Lx_(Lx), N_steps_(N_steps), data_(Lx * N_steps) {}
+
+	// --- access ---
+	Eigen::Vector3d &operator()(std::size_t x, std::size_t t);
+	const Eigen::Vector3d &operator()(std::size_t x, std::size_t t) const;
 	friend Array2DVec3 operator/(
 		const Array2DVec3 &a,
 		const Array2DVec3 &b);
-    
-    // --- get size ---
-    std::size_t size_x() const { return Lx_; }
-    std::size_t size_t() const { return N_steps_; }
+
+	// --- get size ---
+	std::size_t size_x() const { return Lx_; }
+	std::size_t size_t() const { return N_steps_; }
 };
 
 Array1DVec3 extract_const_step(
@@ -152,5 +154,5 @@ void write_params_file(const Params &p, const std::filesystem::path &dir);
 
 void print_params(const Params &p);
 
-void write_python_params(const Params& p);
+void write_python_params(const Params &p);
 #endif
